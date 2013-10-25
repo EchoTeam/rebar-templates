@@ -1,0 +1,25 @@
+{variables, [
+    {name, "myproject"}, 
+    {copyright_year, "2013"},
+    {author_name, "Jacknyfe"},
+    {author_email,"dev@aboutecho.com"},
+    {description, "Fill in description of project here."}
+]}.
+{dir, "src"}.
+{dir, "ebin"}.
+{dir, "include"}.
+{dir, "test"}.
+{dir, "priv"}.
+{dir, "rebar_plugins"}.
+{dir, "rel"}.
+{template, "service_README", "README"}.
+{template, "service_rebar.config", "rebar.config"}.
+{template, "service_Makefile", "Makefile"}.
+{template, "service_gitignore", ".gitignore"}.
+{template, "service_relvsn-bump.sh", "bin/relvsn-bump.sh"}.
+{template, "service_relvsn-get.erl", "bin/relvsn-get.erl"}.
+{template, "service_relvsn-set.erl", "bin/relvsn-set.erl"}.
+{file, "service_rpm-build.config", "rpm-build.config"}.
+{file, "service_rebar_lock_deps_plugin.erl", "rebar_plugins/rebar_lock_deps_plugin.erl"}.
+{template, "service_app_file", "ebin/{{name}}.app"}.
+{template, "service_run.me.first.sh", "run.me.first.sh"}.

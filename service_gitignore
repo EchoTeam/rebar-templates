@@ -1,0 +1,10 @@
+.eunit
+/deps
+ebin/*.app
+*.beam
+*.rpm
+erl_crash.dump
+*~
+rel/{{name}}*
+rel/reltool.config
+rel/usr
