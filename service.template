@@ -13,6 +13,7 @@
 {dir, "priv"}.
 {dir, "rebar_plugins"}.
 {dir, "rel"}.
+{dir, "rel/files"}.
 {template, "service_README", "README"}.
 {template, "service_rebar.config", "rebar.config"}.
 {template, "service_gitignore", ".gitignore"}.
@@ -32,3 +33,15 @@
 {template, "service_run.me.first.sh", "run.me.first.sh"}.
 
 {template, "service_reltool.config.in", "rel/reltool.config.in"}.
+
+% rel/files
+{file,     "service_files/erl", "rel/files/erl"}.
+{chmod,    8#744, "rel/files/erl"}.
+{file,     "service_files/nodetool", "rel/files/nodetool"}.
+{chmod,    8#744, "rel/files/nodetool"}.
+{template, "service_files/service", "rel/files/{{name}}"}.
+{chmod,    8#744, "rel/files/{{name}}"}.
+{template, "service_files/vm.args", "rel/files/vm.args"}.
+{file,     "service_files/install_upgrade.escript", "rel/files/install_upgrade.escript"}.
+{file,     "service_files/remove_release.escript", "rel/files/remove_release.escript"}.
+{template, "service_files/sys.config", "rel/files/sys.config"}.
