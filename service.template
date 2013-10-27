@@ -7,6 +7,7 @@
 ]}.
 {dir, "src"}.
 {dir, "ebin"}.
+{dir, "deps"}.
 {dir, "include"}.
 {dir, "test"}.
 {dir, "priv"}.
@@ -14,17 +15,20 @@
 {dir, "rel"}.
 {template, "service_README", "README"}.
 {template, "service_rebar.config", "rebar.config"}.
-{template, "service_Makefile", "Makefile"}.
 {template, "service_gitignore", ".gitignore"}.
+{template, "service_Makefile", "Makefile"}.
+{file,     "service_project.mk", "project.mk"}.
 
 {template, "service_relvsn-bump.sh", "bin/relvsn-bump.sh"}.
-{chmod, 8#744, "bin/relvsn-bump.sh"}
+{chmod, 8#744, "bin/relvsn-bump.sh"}.
 {template, "service_relvsn-get.erl", "bin/relvsn-get.erl"}.
-{chmod, 8#744, "bin/relvsn-get.erl"}
+{chmod, 8#744, "bin/relvsn-get.erl"}.
 {template, "service_relvsn-set.erl", "bin/relvsn-set.erl"}.
-{chmod, 8#744, "bin/relvsn-set.erl"}
+{chmod, 8#744, "bin/relvsn-set.erl"}.
 
 {file, "service_rpm-build.config", "rpm-build.config"}.
 {file, "service_rebar_lock_deps_plugin.erl", "rebar_plugins/rebar_lock_deps_plugin.erl"}.
 {template, "service_app_file", "ebin/{{name}}.app"}.
 {template, "service_run.me.first.sh", "run.me.first.sh"}.
+
+{template, "service_reltool.config.in", "rel/reltool.config.in"}.
