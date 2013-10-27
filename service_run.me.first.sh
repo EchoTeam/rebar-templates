@@ -1,6 +1,5 @@
 set -e
 git init
-chmod u+x bin/*
 ls | grep -v "run.me.first.sh" | xargs git add
 git add .gitignore
 git commit -m "Initial commit"
