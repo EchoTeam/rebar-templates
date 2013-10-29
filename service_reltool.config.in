@@ -2,7 +2,7 @@
       {erts,[{mod_cond,derived},{app_file,strip}]},
       {app_file,strip},
       {rel,"{{name}}","%relvsn%",
-           [kernel,sasl,stdlib]},
+           [kernel,sasl,stdlib,node_mon]},
       {rel,"start_clean",[],[kernel,stdlib]},
       {boot_rel,"{{name}}"},
       {profile,embedded},
@@ -10,7 +10,8 @@
       {excl_archive_filters,[".*"]},
       {excl_sys_filters,["^bin/.*","^erts.*/bin/(dialyzer|typer)",
                          "^erts.*/(doc|info|include|lib|man|src)"]},
-      {excl_app_filters,[".gitignore"]}]}.
+      {excl_app_filters,[".gitignore"]},
+      {app,node_mon,[{mod_cond,app},{incl_cond,include}]}]}.
 {target_dir,"{{name}}"}.
 {overlay,[{mkdir,"log/sasl"},
           {copy,"files/erl","{{erts_vsn}}/bin/erl"},
