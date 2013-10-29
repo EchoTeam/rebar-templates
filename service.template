@@ -7,7 +7,6 @@
 ]}.
 {dir, "src"}.
 {dir, "ebin"}.
-{dir, "deps"}.
 {dir, "include"}.
 {dir, "test"}.
 {dir, "priv"}.
@@ -31,6 +30,7 @@
 {file, "service_rebar_lock_deps_plugin.erl", "rebar_plugins/rebar_lock_deps_plugin.erl"}.
 {template, "service_app_file", "ebin/{{name}}.app"}.
 {template, "service_run.me.first.sh", "run.me.first.sh"}.
+{chmod, 8#744, "run.me.first.sh"}.
 
 {template, "service_reltool.config.in", "rel/reltool.config.in"}.
 

@@ -1,5 +1,6 @@
 set -e
 make update_lock
+rm -rf deps
 git init
 ls | grep -v "run.me.first.sh" | xargs git add
 git add .gitignore rebar.config.lock
