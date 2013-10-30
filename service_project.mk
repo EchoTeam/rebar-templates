@@ -1,8 +1,10 @@
 .PHONY: all compile test clean target upgrade generate bump_version
 .PHONY: update_lock get_deps update_deps
 
-REBAR_BIN := $(abspath ./rebar)
-REBAR_REL := ../rebar # workaround about rebar's bug
+REBAR_BIN := $(shell which rebar 2>/dev/null || echo -n "")
+ifndef REBAR_BIN
+	REBAR_BIN := $(abspath ./rebar)
+endif
 REBAR_FREEDOM := $(REBAR_BIN) -C rebar.config
 REBAR_LOCKED  := $(REBAR_BIN) -C rebar.config.lock
 REBAR := $(REBAR_FREEDOM)
@@ -28,7 +30,7 @@ bump_version:
 
 generate: update_deps compile bump_version
 	$(eval relvsn := $(shell bin/relvsn-get.erl))
-	cd rel; $(REBAR_REL) generate -f
+	cd rel; $(REBAR_BIN) generate -f
 	cp rel/$(SERVICE_NAME)/releases/$(relvsn)/$(SERVICE_NAME).boot rel/$(SERVICE_NAME)/releases/$(relvsn)/start.boot #workaround for rebar bug
 	echo $(relvsn) > rel/$(SERVICE_NAME)/relvsn
 
@@ -56,7 +58,7 @@ upgrade:
 	-rm -rf rel/$(SERVICE_NAME)_$(prev_vsn)
 	mv rel/$(SERVICE_NAME) rel/$(SERVICE_NAME)_$(prev_vsn)
 	$(MAKE) generate
-	cd rel; $(REBAR_REL) generate-upgrade previous_release=$(SERVICE_NAME)_$(prev_vsn)
+	cd rel; $(REBAR_BIN) generate-upgrade previous_release=$(SERVICE_NAME)_$(prev_vsn)
 
 upgrade_from: clean
 	$(eval cur_rev := $(shell git rev-parse --abbrev-ref HEAD))
