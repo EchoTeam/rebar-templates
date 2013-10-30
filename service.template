@@ -13,7 +13,7 @@
 {dir, "rebar_plugins"}.
 {dir, "rel"}.
 {dir, "rel/files"}.
-{template, "service_README", "README"}.
+{template, "service_README.md", "README.md"}.
 {template, "service_rebar.config", "rebar.config"}.
 {template, "service_gitignore", ".gitignore"}.
 {template, "service_Makefile", "Makefile"}.

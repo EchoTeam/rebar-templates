@@ -1,11 +1,11 @@
-h1. {{name}}
+# {{name}}
 
 {{description}}
 
-h2. Author(s)
+## Author(s)
 
 * {{author_name}} <{{author_email}}>
 
-h2. Copyright
+## Copyright
 
 Copyright (c) {{copyright_year}} {{author_name}} <{{author_email}}>.  All rights reserved.
