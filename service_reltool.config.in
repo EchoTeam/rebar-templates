@@ -17,7 +17,6 @@
           {copy,"files/erl","\{\{erts_vsn\}\}/bin/erl"},
           {copy,"files/nodetool","\{\{erts_vsn\}\}/bin/nodetool"},
           {copy,"files/{{name}}","bin/{{name}}"},
-          {copy,"files/{{name}}.redhat","bin/{{name}}.redhat"},
           {copy,"files/remove_release.escript","bin/remove_release.escript"},
           {copy,"files/install_upgrade.escript","bin/install_upgrade.escript"},
           {copy,"files/sys.config","releases/\{\{rel_vsn\}\}/sys.config"},

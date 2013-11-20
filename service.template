@@ -41,7 +41,6 @@
 {chmod,    8#744, "rel/files/nodetool"}.
 {template, "service_files/service", "rel/files/{{name}}"}.
 {chmod,    8#744, "rel/files/{{name}}"}.
-{template, "service_files/service.redhat", "rel/files/{{name}}.redhat"}.
 {chmod,    8#744, "rel/files/{{name}}.redhat"}.
 {template, "service_files/vm.args", "rel/files/vm.args"}.
 {file,     "service_files/install_upgrade.escript", "rel/files/install_upgrade.escript"}.
