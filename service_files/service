@@ -4,6 +4,11 @@
 
 # uses : uname pwd whoami sudo basename cat mkdir egrep awk hostname date printf kill sleep logger sed
 
+function abort {
+ echo $1
+ exit 1
+}
+
 SERVNAME={{name}}
 
 # /bin/sh on Solaris is not a POSIX compatible shell, but /usr/bin/ksh is.

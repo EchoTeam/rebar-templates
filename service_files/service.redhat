@@ -3,7 +3,7 @@
 # {{name}} service 
 #
 # chkconfig: 2345 80 30
-# description: {{description}}
+# description: {{description}}.
 #
 # Source function library.
 . /etc/rc.d/init.d/functions
@@ -28,7 +28,8 @@ start() {
 	# Start daemons.
 	echo -n $"Starting $NAME: "
 	sudo -H -u $NAME -i $DAEMON start && success || failure $"$NAME start"
-	RETVAL=$?
+    RETVAL=$?
+	[ $(id -u) -eq 0 ] && touch /var/lock/subsys/$NAME
 	[ $RETVAL -eq 0 ]
         echo
 	return $RETVAL
@@ -41,10 +42,17 @@ stop() {
   	if [ "$RETVAL" == "pong" ] 
     then    
         pid=`sudo -H -u $NAME -i $DAEMON getpid`
-        sudo -H -u $NAME -i  $DAEMON stop && success && echo && return 0 
+        sudo -H -u $NAME -i  $DAEMON stop 
+        if [ $? == 0 ] ; then
+           [ $(id -u) -eq 0 ] && rm /var/lock/subsys/$NAME
+            success 
+            echo 
+            return 0 
+        fi
        sleep 2
        kill -0 $pid >/dev/null  2>&1 
        if [ $? ==  0  ] ; then
+           [ $(id -u) -eq 0 ] && rm /var/lock/subsys/$NAME
            success 
            echo 
            return 0 
