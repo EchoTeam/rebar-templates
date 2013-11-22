@@ -3,7 +3,7 @@
 
 REBAR_BIN := $(shell which rebar 2>/dev/null || echo -n "")
 ifndef REBAR_BIN
-	REBAR_BIN := $(abspath ./rebar)
+	REBAR_BIN := $(abspath ./)/rel/../rebar # "rel/../" is a workaround for rebar bug
 endif
 REBAR_FREEDOM := $(REBAR_BIN) -C rebar.config
 REBAR_LOCKED  := $(REBAR_BIN) -C rebar.config.lock
