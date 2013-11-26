@@ -37,7 +37,14 @@ compile:
 	$(REBAR) compile
 	
 update_lock:
-	rm -rf deps
+ifdef apps
+	@echo "Updating rebar.config.lock for $(apps)..."
+	$(eval apps_list = $(shell echo $(apps) | sed 's/,/ /g'))
+	$(foreach app, $(apps_list), $(shell rm -rf ./deps/$(app)))
+else
+	@echo "Updating rebar.config.lock for all deps..."
+	rm -rf ./deps
+endif
 	$(REBAR_FREEDOM) get-deps
 	$(REBAR_FREEDOM) lock-deps apps=$(SERVICE_NAME) keep_first=lager
 
