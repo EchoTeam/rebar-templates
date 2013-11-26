@@ -4,12 +4,31 @@
 
 # uses : uname pwd whoami sudo basename cat mkdir egrep awk hostname date printf kill sleep logger sed
 
+SERVNAME={{name}}
+
 function abort {
- echo $1
- exit 1
+    echo $1
+    exit 1
 }
 
-SERVNAME={{name}}
+RUNNER_USER=${SERVNAME}
+RUNNER_LOG_DIR=/var/log/${SERVNAME}
+
+while getopts u:l: OPT; do
+    case "$OPT" in
+        u)
+            RUNNER_USER="$OPTARG"
+            ;;
+        l)
+            RUNNER_LOG_DIR="$OPTARG/"
+            ;;
+        \?)
+            abort "Unknown option"
+            ;;
+    esac
+done
+
+shift $((OPTIND-1))
 
 # /bin/sh on Solaris is not a POSIX compatible shell, but /usr/bin/ksh is.
 if [ `uname -s` = 'SunOS' -a "${POSIX_SHELL}" != "true" ]; then
@@ -32,7 +51,6 @@ RUNNER_BASE_DIR=${RUNNER_SCRIPT_DIR%/*}
 RUNNER_ETC_DIR=$RUNNER_BASE_DIR/etc
 # Note the trailing slash on $PIPE_DIR/
 PIPE_DIR=/tmp/$RUNNER_BASE_DIR/
-RUNNER_USER=$SERVNAME
 WHOAMI=$(whoami)
 
 # Make sure this script is running as the appropriate user
@@ -67,7 +85,6 @@ else
     fi
 fi
 
-RUNNER_LOG_DIR=/var/log/$SERVNAME
 # Make sure log directory exists
 mkdir -p $RUNNER_LOG_DIR
 
