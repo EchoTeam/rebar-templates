@@ -46,6 +46,7 @@ else
 	rm -rf ./deps
 endif
 	$(REBAR_FREEDOM) get-deps
+	$(MAKE) compile # compiling to make lock-deps available
 	$(REBAR_FREEDOM) lock-deps apps=$(SERVICE_NAME) keep_first=lager
 
 get_deps:

@@ -5,12 +5,8 @@
     {author_email,"dev@aboutecho.com"},
     {description, "Fill in description of project here."}
 ]}.
-{dir, "src"}.
 {dir, "ebin"}.
-{dir, "include"}.
 {dir, "test"}.
-{dir, "priv"}.
-{dir, "rebar_plugins"}.
 {dir, "rel"}.
 {dir, "rel/files"}.
 {template, "service_README.md", "README.md"}.
@@ -23,7 +19,6 @@
 {chmod, 8#744, "bin/relvsn-get.erl"}.
 
 {file, "service_rpm-build.config", "rpm-build.config"}.
-{file, "service_rebar_lock_deps_plugin.erl", "rebar_plugins/rebar_lock_deps_plugin.erl"}.
 {template, "service_app_file", "ebin/{{name}}.app"}.
 {template, "service_run.me.first.sh", "run.me.first.sh"}.
 {chmod, 8#744, "run.me.first.sh"}.
