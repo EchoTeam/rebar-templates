@@ -1,5 +1,9 @@
 # Makefile targets
 
+## Intro
+
+Many targets extensively use [rebar](https://github.com/rebar/rebar). By default, the targets try to find system-wide rebar to use. If you want to use a specific version of rebar or do not have rebar installed, you can place rebar to the project root directory. All targets will automatically use that local rebar binary.
+
 ## make get-deps
 
 Downloads all deps of the project using rebar.config.lock.
