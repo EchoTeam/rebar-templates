@@ -18,7 +18,7 @@ of the project and locks it at a specific git revision (see more info on
 [the plugin page](https://github.com/EchoTeam/rebar-lock-deps)).
 
 When you change the `deps` section in any `rebar.config` file (the root one or of a dep),
-you will need to update `rebar.config.lock file`. You can run
+you will need to update `rebar.config.lock` file. You can run
 `make update-lock` to update the lock for all deps or
 `make update-lock apps=app1,app2` to update it for specific deps.
 
