@@ -1,5 +1,5 @@
 set -e
-make update_lock
+make update-lock
 git init
 ls --ignore={deps,run.me.first.sh} | xargs git add
 git add .gitignore rebar.config.lock

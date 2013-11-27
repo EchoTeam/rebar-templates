@@ -10,8 +10,9 @@
 ## https://github.com/EchoTeam/rebar-templates/blob/master/service_project.mk
 ##
 
-.PHONY: all compile test clean target upgrade generate rel run
-.PHONY: update_lock get_deps update_deps
+.PHONY: all compile test clean target generate rel
+.PHONY: update-lock get-deps update-deps
+.PHONY: run upgrade upgrade-from ext-deps
 
 REBAR_BIN := $(abspath ./)/rel/../rebar # "rel/../" is a workaround for rebar bug
 ifeq ($(wildcard $(REBAR_BIN)),)
@@ -36,7 +37,7 @@ all: compile
 compile:
 	$(REBAR) compile
 	
-update_lock:
+update-lock:
 ifdef apps
 	@echo "Updating rebar.config.lock for $(apps)..."
 	$(eval apps_list = $(shell echo $(apps) | sed 's/,/ /g'))
@@ -49,10 +50,10 @@ endif
 	$(MAKE) compile # compiling to make lock-deps available
 	$(REBAR_FREEDOM) lock-deps skip_deps=true keep_first=lager,echo_rebar_plugins
 
-get_deps:
+get-deps:
 	$(REBAR_LOCKED) get-deps
 
-update_deps: get_deps
+update-deps: get-deps
 	$(REBAR_LOCKED) update-deps
 
 rel:
@@ -71,7 +72,7 @@ test:
 	$(REBAR) eunit skip_deps=meck,lager
 
 # make target system for production
-target: clean update_deps
+target: clean update-deps
 	$(MAKE) generate DEPS_DIR="$(DEFAULT_DEPS_DIR)" LOG_DIR="$(DEFAULT_LOG_DIR)"
 
 
@@ -90,14 +91,14 @@ upgrade:
 	cd rel; $(REBAR_BIN) generate-upgrade previous_release=$(SERVICE_NAME)_$(prev_vsn)
 
 # generate upgrade upon a specific git revision
-upgrade_from: clean
+upgrade-from: clean
 	$(eval cur_rev := $(shell git rev-parse --abbrev-ref HEAD))
 	git checkout $(rev)
 	$(MAKE) target DEPS_DIR="$(DEV_DEPS_DIR)" LOG_DIR="$(DEV_LOG_DIR)"
 	git checkout $(cur_rev)
 	$(MAKE) upgrade DEPS_DIR="$(DEV_DEPS_DIR)" LOG_DIR="$(DEV_LOG_DIR)"
 
-ext_deps:
+ext-deps:
 ifndef deps_dir
 	@echo "No deps_dir specified."
 	exit 1
@@ -107,7 +108,7 @@ endif
 	@echo "Switch to master/branch those you want to work in."
 
 # runs the service
-run: get_deps
+run: get-deps
 	export REBAR_DEPS_DIR="$(DEV_DEPS_DIR)" && \
 	$(MAKE) generate DEPS_DIR="$(DEV_DEPS_DIR)" LOG_DIR="$(DEV_LOG_DIR)"
 	./rel/$(SERVICE_NAME)/bin/$(SERVICE_NAME) -u `whoami` -l "$(DEV_LOG_DIR)" console -s sync
