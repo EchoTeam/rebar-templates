@@ -36,3 +36,15 @@ Generates a complete Erlang release target system and place the files into `rel/
 ## make run
 
 Generates a release target system and runs the project. For development environment only.
+You can set `ECHO_DEPS_DIR` environment variable to specify external deps directory. If the variable is defined, `make run` will be using this directory to work with deps and not the one inside the project (`deps` directory). It is useful when you are actively developing some deps. Do not change `deps` directory inside the project manually. The directory may be wiped out at any monent.
+
+## make upgrade-from
+
+Generates an Erlang release upgrade of the current git HEAD upon what is currently in `rel/{service_name}` directory. For development environment only. A use case might be as shown below:
+ * `make target`
+ * change some files or just checkout a specific git revision
+ * make
+ * make sure that `rel/reltool.config` contains updated release version; keep in mind that the the file is generated so (you can replace `RELVSN` in `rel/reltool.config.in` with some version manually)
+ * `make upgrade`
+
+You can find the upgrade in `rel/{service_name}/
