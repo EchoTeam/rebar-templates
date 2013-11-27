@@ -97,6 +97,15 @@ upgrade_from: clean
 	git checkout $(cur_rev)
 	$(MAKE) upgrade DEPS_DIR="$(DEV_DEPS_DIR)" LOG_DIR="$(DEV_LOG_DIR)"
 
+ext_deps:
+ifndef deps_dir
+	@echo "No deps_dir specified."
+	exit 1
+endif
+	export REBAR_DEPS_DIR=$(deps_dir) && $(REBAR_FREEDOM) get-deps
+	@echo "INFO: Some repos can be in detached HEAD state (not currently on any branch)."
+	@echo "Switch to master/branch that you want to work in."
+
 # runs the service
 run: get_deps
 	export REBAR_DEPS_DIR="$(DEV_DEPS_DIR)" && \
