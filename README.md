@@ -6,9 +6,7 @@ To make the templates available, you need to clone the repo to your `~/.rebar/te
 
     git clone git@github.com:EchoTeam/rebar-templates.git ~/.rebar/templates
     
-## Examples
-
-### Creating Erlang/OTP service layout
+## Creating Erlang/OTP service layout
 
 If you want to create a new directory layout for your new service you can do the following:
 
@@ -19,4 +17,4 @@ If you want to create a new directory layout for your new service you can do the
 
 This will generate the initial framework of a service that supports Erlang/OTP releases done through [otp-release-scripts](https://github.com/EchoTeam/otp-release-scripts).
 
-Note: You need rebar installed in your system, or placed in `service_name` directory.
+Note: You need rebar installed in your system, or placed in `<service_name>` directory.
