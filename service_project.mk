@@ -104,7 +104,7 @@ ifndef deps_dir
 endif
 	export REBAR_DEPS_DIR=$(deps_dir) && $(REBAR_FREEDOM) get-deps
 	@echo "INFO: Some repos can be in detached HEAD state (not currently on any branch)."
-	@echo "Switch to master/branch that you want to work in."
+	@echo "Switch to master/branch those you want to work in."
 
 # runs the service
 run: get_deps
