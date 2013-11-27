@@ -47,7 +47,7 @@ else
 endif
 	$(REBAR_FREEDOM) get-deps
 	$(MAKE) compile # compiling to make lock-deps available
-	$(REBAR_FREEDOM) lock-deps apps=$(SERVICE_NAME) keep_first=lager
+	$(REBAR_FREEDOM) lock-deps apps=$(SERVICE_NAME) keep_first=lager,echo_rebar_plugins
 
 get_deps:
 	$(REBAR_LOCKED) get-deps
