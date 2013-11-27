@@ -36,7 +36,7 @@ Generates a complete Erlang release target system and place the files into `rel/
 ## make run
 
 Generates a release target system and runs the project. For development environment only.
-You can set `ECHO_DEPS_DIR` environment variable to specify external deps directory. If the variable is defined, `make run` will be using this directory to work with deps and not the one inside the project (`deps` directory). It is useful when you are actively developing some deps. Do not change `deps` directory inside the project manually. The directory may be wiped out at any monent.
+You can set `ECHO_DEPS_DIR` environment variable to specify external deps directory. If the variable is defined, `make run` will be using this directory to work with deps and not the one inside the project (`deps` directory). It is useful when you are actively developing some deps. Do not change `deps` directory inside the project manually. The directory may be wiped out at any monent. You can use [make ext-deps](#) to create an external deps directory for the first time.
 
 ## make upgrade
 
@@ -52,3 +52,7 @@ You can find the upgrade in `rel/{service_name}_{relvsn}.tar.gz
 Generates an Erlang release upgrade of the current git HEAD upon a specific git revision. For development environment only. It is a shortcut for the use case described in the prvious section. It is better to commit all changes before using this. Example:
 
     make upgrade-from rev=my_branch
+
+## make ext-deps
+
+Creates an external deps directory by dowloading all current deps of the project into it. It can be useful to initially create the directory. The external dep directory can be useful when using [make run](#).
