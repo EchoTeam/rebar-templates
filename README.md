@@ -1,4 +1,4 @@
-# Rebar templates #
+# Echo Rebar Templates #
 
 ## How to use templates ##
 
