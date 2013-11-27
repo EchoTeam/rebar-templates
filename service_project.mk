@@ -18,7 +18,7 @@ ifeq ($(wildcard $(REBAR_BIN)),)
 	REBAR_BIN := $(shell which rebar)
 endif
 REBAR_FREEDOM := $(REBAR_BIN) -C rebar.config
-REBAR_LOCKED  := $(REBAR_BIN) -C rebar.config.lock apps=$(SERVICE_NAME)
+REBAR_LOCKED  := $(REBAR_BIN) -C rebar.config.lock skip_deps=true
 REBAR := $(REBAR_FREEDOM)
 
 DEFAULT_DEPS_DIR := $(abspath deps)
@@ -47,7 +47,7 @@ else
 endif
 	$(REBAR_FREEDOM) get-deps
 	$(MAKE) compile # compiling to make lock-deps available
-	$(REBAR_FREEDOM) lock-deps apps=$(SERVICE_NAME) keep_first=lager,echo_rebar_plugins
+	$(REBAR_FREEDOM) lock-deps skip_deps=true keep_first=lager,echo_rebar_plugins
 
 get_deps:
 	$(REBAR_LOCKED) get-deps
