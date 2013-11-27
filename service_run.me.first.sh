@@ -1,8 +1,7 @@
 set -e
 make update_lock
-rm -rf deps
 git init
-ls | grep -v "run.me.first.sh" | xargs git add
+ls --ignore={deps,run.me.first.sh} | xargs git add
 git add .gitignore rebar.config.lock
 git commit -m "Initial commit"
 git tag 0.1.0
