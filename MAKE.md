@@ -36,7 +36,9 @@ Generates a complete Erlang release target system and place the files into `rel/
 ## make run
 
 Generates a release target system and runs the project. For development environment only.
-You can set `ECHO_DEPS_DIR` environment variable to specify external deps directory. If the variable is defined, `make run` will be using this directory to work with deps and not the one inside the project (`deps` directory). It is useful when you are actively developing some deps. Do not change `deps` directory inside the project manually. The directory may be wiped out at any monent. You can use [make ext-deps](#make-ext-deps) to create an external deps directory for the first time.
+You can set `ECHO_DEPS_DIR` environment variable to specify external deps directory. If the variable is defined, `make run` will be using this directory to work with deps and not the one inside the project (`deps` directory). It is useful when you are actively developing some deps. Do not change `deps` directory inside the project manually. The directory may be wiped out at any monent.
+
+You can use [make ext-deps](#make-ext-deps) to create an external deps directory for the first time.
 
 ## make upgrade
 
