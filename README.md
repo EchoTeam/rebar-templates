@@ -20,3 +20,7 @@ This will generate the initial framework of a service that supports
 Erlang/OTP releases done through [otp-release-scripts](https://github.com/EchoTeam/otp-release-scripts).
 
 Note: You need rebar installed in your system, or placed in `<service_name>` directory.
+
+See more info on the service layout:
+ * [Makefile targets](service_MAKE.md)
+ * [Working with deps](service_DEPS.md)
