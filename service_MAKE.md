@@ -10,7 +10,7 @@ automatically use that local rebar binary.
 
 ## make get-deps
 
-Downloads all deps of the project using rebar.config.lock.
+Downloads all deps of the project using rebar.config.lock. See more about it in [Working with deps](service_DEPS.md).
 
 ## make update-deps
 
