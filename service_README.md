@@ -14,4 +14,9 @@ Copyright (c) {{copyright_year}} {{author_name}} <{{author_email}}>.  All rights
 
 ## Makefile targets
 
-See [Makefile targets](MAKE.md)
+See [Makefile targets](https://github.com/EchoTeam/rebar-templates/blob/master/MAKE.md)
+
+## Working with deps
+
+See [Working with deps](https://github.com/EchoTeam/rebar-templates/blob/master/DEPS.md)
+
