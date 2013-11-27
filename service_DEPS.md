@@ -22,4 +22,4 @@ you will need to update `rebar.config.lock` file. You can run
 `make update-lock` to update the lock for all deps or
 `make update-lock apps=app1,app2` to update it for specific deps.
 
-See more in [make update-lock](service_MAKE.md#make-update-lock).
+See also [make update-lock](service_MAKE.md#make-update-lock).
