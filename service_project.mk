@@ -41,10 +41,16 @@ update-lock:
 ifdef apps
 	@echo "Updating rebar.config.lock for $(apps)..."
 	$(eval apps_list = $(shell echo $(apps) | sed 's/,/ /g'))
-	$(foreach app, $(apps_list), $(shell rm -rf ./deps/$(app)))
+	@for app in $(apps_list); do \
+		rmcmd="rm -rI ./deps/$$app"; \
+		echo "WARNING: Make sure you don't have code left to push in ./deps/$$app directory."; \
+		echo $$rmcmd; \
+		echo `[ -d ./deps/$$app ] && $$rmcmd`; \
+	done
 else
 	@echo "Updating rebar.config.lock for all deps..."
-	rm -rf ./deps
+	@echo "WARNING: Make sure you don't have code left to push in ./deps/* directories."
+	rm -rI ./deps
 endif
 	$(REBAR_FREEDOM) get-deps
 	$(MAKE) compile # compiling to make lock-deps available
