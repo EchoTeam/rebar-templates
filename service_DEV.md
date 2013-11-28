@@ -65,6 +65,13 @@ See also
 [genappup](https://github.com/EchoTeam/genappup) and
 [Appup Cookbook](http://www.erlang.org/doc/design_principles/appup_cookbook.html).
 
+### Adding a new dependency
+
+    $ cd {project_root}
+    $ vim rebar.config # meening you add a new app record to deps section
+    $ make update-lock apps={new_app_name}
+    $ git commit rebar.config rebar.config.lock
+
 ### Cheking how target system building works:
 
     $ git commit
