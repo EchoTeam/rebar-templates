@@ -12,14 +12,14 @@ See also [README.md](README.md).
 ### Cloning and running a fresh repo:
 
     $ git clone {url-to-the-repo}
-    $ cd {service-name}
+    $ cd {service_name}
     $ make get-deps
     $ make run
 
 ### Changing code
 
     $ make run
-    $ vim deps/{your-app}/src/{your-module}.erl
+    $ vim deps/{your_app}/src/{your_module}.erl
 
 All changed modules will be automatically compiled and loaded to Erlang VM using
 [sync](https://github.com/rustyio/sync).
@@ -27,7 +27,7 @@ See also [make run](service_MAKE.md#make-run).
 
 ### Creating appup files
 
-    $ cd {your-app}
+    $ cd {your_app}
     $ vim src/*.erl # meening you change your code in some way
     $ OLD_REV=`git rev-parse HEAD` # meening your just now the current rev
     $ git commit
@@ -35,28 +35,28 @@ See also [make run](service_MAKE.md#make-run).
 
 or
 
-    $ cd {your-app}
+    $ cd {your_app}
     $ git co -b {your-branch}
     $ vim src/*.erl # meening you change your code in some way
     $ git commit
     $ genappup master
 
-After `genappup` is run there will be a new file src/{your-app}.appup.src.
+After `genappup` is run there will be a new file src/{your_app}.appup.src.
 You should revise it, change manually if needed and commit.
-At compile time, this file will be automatically copied to ebin/{your-app}.app
+At compile time, this file will be automatically copied to ebin/{your_app}.app
 (Erlang/OTP releases require the appup file to be there).
 
 Sometimes you will need the appup file for a third-party application. If the owners do not use
 Erlang/OTP releases, most likely there won't be an appup file in the repo.
 In this case, you can still run `genappup` against the foreign repo and move
-the generated {foreign-app}.appup.src file to your root project src directory.
+the generated {foreign_app}.appup.src file to your root project src directory.
 Your root src dir can look like this:
 
     ebin/
     deps/
     src/
-        {foreign-app1}.appup.src
-        {foreign-app2}.appup.src
+        {foreign_app1}.appup.src
+        {foreign_app2}.appup.src
     priv/
 
 Those files, at compile time, will be place to corresponding applications ebin directories.
@@ -78,5 +78,5 @@ See also
 
 
 
-
-See also [Makefile targets](service_MAKE.md).
+### See also
+[Makefile targets](service_MAKE.md)
