@@ -29,7 +29,7 @@ you should checkout a branch:
     $ cd deps/{your_app}
     $ git checkout master
 
-It is needed because rebar leaves the deps repositories
+It is needed because sometimes rebar leaves the deps repositories
 in detached state ("Not currently at any branch").
 
 ### Creating appup files
