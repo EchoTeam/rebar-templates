@@ -25,7 +25,7 @@ Updates deps repositories using rebar.config.lock.
 Generates new rebar.config.lock by re-downloading all deps. It is possible
 to only update specific deps using `apps` option:
 
-    make update-lock apps=lager,lager_syslog
+    $ make update-lock apps=lager,lager_syslog
 
 [More info about rebar.config.lock](service_DEPS.md)
 
@@ -75,9 +75,10 @@ directory for the first time.
 Generates an Erlang release upgrade upon what is currently in
 `rel/{service_name}` directory. For development environment only.
 A use case might be as shown below:
- * `make target` (it will generate `rel/{service_name}` directory)
- * checkout a specific past git revision
- * `make upgrade`
+
+    $ make target # it will generate rel/{service_name} directory
+    $ git checkout {an_older_rev} # checking out a specific past git revision
+    $ make upgrade
 
 You can find the upgrade in `rel/{service_name}_{relvsn}.tar.gz
 
@@ -89,7 +90,10 @@ git revision. For development environment only. It is a shortcut for
 the use case described in the prvious section. It is better to commit all
 changes before using this. Example:
 
-    make upgrade-from rev=my_branch
+    $ git co -b {my_branch}
+    $ working...
+    $ git commit .
+    $ make upgrade-from rev=master
 
 
 ## make ext-deps
