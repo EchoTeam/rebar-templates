@@ -4,7 +4,7 @@
 ## Intro
 
 The project uses rebar to manage dependencies with help of
-[rebar plugins](https://github.com/EchoTeam/rebar-plugins).
+[the rebar plugins](https://github.com/EchoTeam/rebar-plugins).
 
 When you just clone the repository of the project, you need to `make get-deps`
 first to download all deps. Some make targets do it on their own though.
