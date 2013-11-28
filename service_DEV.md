@@ -16,6 +16,15 @@ See also [README.md](README.md).
     $ make get-deps
     $ make run
 
+### Changing code
+
+    $ make run
+    $ vim deps/<your-app>/src/<your-module>.erl
+
+All changed modules will be automatically compiled and loaded to Erlang VM using
+[sync](https://github.com/rustyio/sync).
+See also [make run](service_MAKE.md#make-run).
+
 ### Cheking how target system building works:
 
     $ git commit
