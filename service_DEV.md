@@ -21,13 +21,20 @@ See also [README.md](README.md).
     $ make run
     $ vim deps/{your_app}/src/{your_module}.erl
 
-All changed modules will be automatically compiled and loaded to Erlang VM using
-[sync](https://github.com/rustyio/sync).
-See also [make run](service_MAKE.md#make-run).
+All changed modules will be automatically compiled and loaded
+into Erlang VM using [sync](https://github.com/rustyio/sync).
+Note that before changing the code for real in deps directory,
+you should checkout a branch:
+
+    $ cd deps/{your_app}
+    $ git checkout master
+
+It is needed because rebar leaves the deps repositories
+in detached state ("Not currently at any branch").
 
 ### Creating appup files
 
-    $ cd {your_app}
+    $ cd deps/{your_app}
     $ vim src/*.erl # meening you change your code in some way
     $ OLD_REV=`git rev-parse HEAD` # meening your just now the current rev
     $ git commit
@@ -35,7 +42,7 @@ See also [make run](service_MAKE.md#make-run).
 
 or
 
-    $ cd {your_app}
+    $ cd deps/{your_app}
     $ git co -b {your-branch}
     $ vim src/*.erl # meening you change your code in some way
     $ git commit
@@ -46,8 +53,9 @@ You should revise it, change manually if needed and commit.
 At compile time, this file will be automatically copied to ebin/{your_app}.app
 (Erlang/OTP releases require the appup file to be there).
 
-Sometimes you will need the appup file for a third-party application. If the owners do not use
-Erlang/OTP releases, most likely there won't be an appup file in the repo.
+Sometimes you will need the appup file for a third-party application.
+If the owners do not use Erlang/OTP releases, most likely there
+will not be an appup file in the repo.
 In this case, you can still run `genappup` against the foreign repo and move
 the generated {foreign_app}.appup.src file to your root project src directory.
 Your root src dir can look like this:
@@ -72,12 +80,12 @@ See also
     $ make update-lock apps={new_app_name}
     $ git commit rebar.config rebar.config.lock
 
-### Cheking how target system building works:
+### Cheking how target system build works:
 
     $ git commit
     $ make target
 
-### Cheking how upgrade building works:
+### Cheking how upgrade build works:
 
     $ OLD_REV=`git rev-parse HEAD`
     $ git commit

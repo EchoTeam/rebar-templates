@@ -12,7 +12,8 @@ automatically use that local rebar binary.
 
 ## make get-deps
 
-Downloads all deps of the project using rebar.config.lock. See more about it in [Working with deps](service_DEPS.md).
+Downloads all deps of the project using rebar.config.lock. See more
+about it in [Working with deps](service_DEPS.md).
 
 
 ## make update-deps
@@ -22,10 +23,14 @@ Updates deps repositories using rebar.config.lock.
 
 ## make update-lock
 
-Generates new rebar.config.lock by re-downloading all deps. It is possible
-to only update specific deps using `apps` option:
+Generates new rebar.config.lock by re-downloading all deps.
+It is recommended that you git commit and push before running it.
+It is possible to only update specific deps using `apps` option:
 
     $ make update-lock apps=lager,lager_syslog
+
+In the last case you will be asked if you want to continue because partial
+update-lock works though removing deps specified.
 
 [More info about rebar.config.lock](service_DEPS.md)
 
@@ -59,15 +64,6 @@ into `rel/{service_name}` directory.
 
 Generates a release target system and runs the project.
 For development environment only.
-You can set `ECHO_DEPS_DIR` environment variable to specify external deps
-directory. If the variable is defined, `make run` will be using this directory
-to work with deps and not the one inside the project (`deps` directory).
-It is useful when you are actively developing some deps. Do not change
-`deps` directory inside the project manually. The directory may be wiped out
-at any moment.
-
-You can use [make ext-deps](#make-ext-deps) to create an external deps
-directory for the first time.
 
 
 ## make upgrade
@@ -94,10 +90,3 @@ changes before using this. Example:
     $ working...
     $ git commit .
     $ make upgrade-from rev=master
-
-
-## make ext-deps
-
-Creates an external deps directory by downloading all current deps of
-the project into it. It can be useful to initially create the directory.
-The external dep directory can be useful when using [make run](#make-run).

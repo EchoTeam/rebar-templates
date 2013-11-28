@@ -1,4 +1,4 @@
-{sys,[{lib_dirs,["DEPS_DIR"]},
+{sys,[{lib_dirs,["../deps"]},
       {erts,[{mod_cond,derived},{app_file,strip}]},
       {app_file,strip},
       {rel,"{{name}}","RELVSN",
