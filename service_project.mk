@@ -65,6 +65,7 @@ generate: compile rel
 
 clean:
 	$(REBAR) clean
+	rm -rf rel/$(SERVICE_NAME)*
 
 test:
 	$(REBAR) eunit skip_deps=meck,lager

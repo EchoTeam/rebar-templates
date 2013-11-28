@@ -10,10 +10,10 @@
 {dir, "rel"}.
 {dir, "rel/files"}.
 {template, "service_README.md", "README.md"}.
-{template, "service_rebar.config", "rebar.config"}.
 {template, "service_gitignore", ".gitignore"}.
 {template, "service_Makefile", "Makefile"}.
 {file,     "service_project.mk", "project.mk"}.
+{file,     "service_rebar.config", "rebar.config"}.
 
 {template, "service_relvsn-get.erl", "bin/relvsn-get.erl"}.
 {chmod, 8#744, "bin/relvsn-get.erl"}.
