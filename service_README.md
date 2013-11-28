@@ -11,6 +11,9 @@
 Copyright (c) {{copyright_year}} {{author_name}} <{{author_email}}>.  All rights reserved.
 
 
+## Basic development workflow
+
+See [Basic development workflow](https://github.com/EchoTeam/rebar-templates/blob/master/service_DEV.md).
 
 ## Makefile targets
 

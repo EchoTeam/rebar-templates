@@ -22,5 +22,6 @@ Erlang/OTP releases done through [otp-release-scripts](https://github.com/EchoTe
 Note: You need rebar installed in your system, or placed in `<service_name>` directory.
 
 See more info on the service layout:
+ * [Basic development workflow](service_DEV.md)
  * [Makefile targets](service_MAKE.md)
  * [Working with deps](service_DEPS.md)
