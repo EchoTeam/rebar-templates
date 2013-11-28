@@ -64,7 +64,7 @@ directory. If the variable is defined, `make run` will be using this directory
 to work with deps and not the one inside the project (`deps` directory).
 It is useful when you are actively developing some deps. Do not change
 `deps` directory inside the project manually. The directory may be wiped out
-at any monent.
+at any moment.
 
 You can use [make ext-deps](#make-ext-deps) to create an external deps
 directory for the first time.
