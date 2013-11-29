@@ -42,7 +42,6 @@ ifdef apps
 	done
 	$(REBAR_FREEDOM) get-deps
 else
-	$(REBAR_FREEDOM) get-deps
 	$(REBAR_FREEDOM) update-deps
 endif
 	$(MAKE) compile # compiling to make lock-deps available
@@ -51,7 +50,7 @@ endif
 get-deps:
 	$(REBAR_LOCKED) get-deps
 
-update-deps: get-deps
+update-deps:
 	$(REBAR_LOCKED) update-deps
 
 rel:
