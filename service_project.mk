@@ -51,7 +51,7 @@ get-deps:
 	$(REBAR_LOCKED) get-deps
 
 update-deps:
-	$(REBAR_LOCKED) update-deps
+	$(REBAR_LOCKED) update-deps ignore_deps=true
 
 rel:
 	$(MAKE) -C rel LOG_DIR="$(LOG_DIR)"
