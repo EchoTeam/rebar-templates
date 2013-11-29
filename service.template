@@ -9,6 +9,8 @@
 {dir, "test"}.
 {dir, "rel"}.
 {dir, "rel/files"}.
+{file,     "rebar", "rebar"}.
+{chmod,     8#744, "rebar"}.
 {template, "service_README.md", "README.md"}.
 {template, "service_gitignore", ".gitignore"}.
 {template, "service_Makefile", "Makefile"}.

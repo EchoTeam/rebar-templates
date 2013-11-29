@@ -4,10 +4,11 @@
 ## Intro
 
 Many targets extensively use [rebar](https://github.com/rebar/rebar).
-By default, the targets try to find system-wide rebar to use. If you
-want to use a specific version of rebar or do not have rebar installed,
-you can place rebar to the project root directory. All targets will
-automatically use that local rebar binary.
+A specific rebar version is included into the project codebase.
+If you remove rebar from the project, the Makefile targets will try
+to find system wide rebar. But it is not recommended to do so.
+Rebar is a rapidly changing project and often becomes incompatible with
+plugins. Your rebar may appear not working as you expected at some point.
 
 
 ## make get-deps
