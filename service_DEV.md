@@ -35,8 +35,8 @@ in detached state ("Not currently at any branch").
 ### Creating appup files
 
     $ cd deps/{your_app}
-    $ vim src/*.erl # meening you change your code in some way
-    $ OLD_REV=`git rev-parse HEAD` # meening your just now the current rev
+    $ vim src/*.erl # meaning you change your code in some way
+    $ OLD_REV=`git rev-parse HEAD` # meaning your just now the current rev
     $ git commit
     $ genappup $OLD_REV
 
@@ -44,7 +44,7 @@ or
 
     $ cd deps/{your_app}
     $ git co -b {your-branch}
-    $ vim src/*.erl # meening you change your code in some way
+    $ vim src/*.erl # meaning you change your code in some way
     $ git commit
     $ genappup master
 
@@ -76,7 +76,7 @@ See also
 ### Adding a new dependency
 
     $ cd {project_root}
-    $ vim rebar.config # meening you add a new app record to deps section
+    $ vim rebar.config # meaning you add a new app record to deps section
     $ make update-lock apps={new_app_name}
     $ git commit rebar.config rebar.config.lock
 
