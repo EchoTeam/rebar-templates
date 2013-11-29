@@ -11,9 +11,12 @@ Rebar is a rapidly changing project and often becomes incompatible with
 plugins. Your rebar may appear not working as you expected at some point.
 
 
-## make or make all
+## make or make all or make compile
 
-Does `make get-deps compile`.
+Compiles the project. Compilation is performed by running `rebar compile`
+on each application/dependency.
+So it is crucial for all deps to make sure that all the code (including ports)
+is compiled with `rebar compile`. Use rebar hooks to achieve this.
 
 
 ## make get-deps
@@ -27,18 +30,11 @@ about it in [Working with deps](service_DEPS.md).
 Updates deps repositories using rebar.config.lock.
 
 
-## make compile
-
-Compiles the project. Compilation is performed by running `rebar compile`
-on each application/dependency.
-So it is crucial for all deps to make sure that all the code (including ports)
-is compiled with `rebar compile`. Use rebar hooks to achieve this.
-
-
 ## make update-lock
 
 Generates new rebar.config.lock by re-downloading all deps.
-It is recommended that you git commit and push before running it.
+It is recommended that you git commit and push code in all deps
+before running it.
 It is possible to only update specific deps using `apps` option:
 
     $ make update-lock apps=lager,lager_syslog

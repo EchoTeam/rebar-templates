@@ -25,9 +25,12 @@ REBAR := $(REBAR_FREEDOM)
 DEFAULT_LOG_DIR  := /var/log/$(SERVICE_NAME)
 DEV_LOG_DIR      := $(abspath ./rel/$(SERVICE_NAME)/log)
 
-all: update-deps compile
+all: compile
 
-compile:
+compile: update-deps
+	$(eval ROOT_APP_NAME := $(shell ./bin/appname.erl))
+	# Making plugins available first:
+	$(REBAR) compile apps=$(ROOT_APP_NAME),echo_rebar_plugins
 	$(REBAR) compile
 	
 update-lock:
@@ -40,12 +43,14 @@ ifdef apps
 		echo $$rmcmd; \
 		echo `[ -d ./deps/$$app ] && $$rmcmd`; \
 	done
-	$(REBAR_FREEDOM) get-deps
+	$(REBAR) get-deps
 else
-	$(REBAR_FREEDOM) update-deps
+	$(REBAR) update-deps
 endif
-	$(MAKE) compile # compiling to make lock-deps available
-	$(REBAR_FREEDOM) lock-deps skip_deps=true keep_first=lager,echo_rebar_plugins
+	$(eval ROOT_APP_NAME := $(shell ./bin/appname.erl))
+	# Making lock-deps available first:
+	$(REBAR) compile apps=$(ROOT_APP_NAME),echo_rebar_plugins,rebar_lock_deps_plugin
+	$(REBAR) lock-deps skip_deps=true keep_first=echo_rebar_plugins,lager
 	@touch deps/.updated
 
 get-deps:
