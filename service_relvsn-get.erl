@@ -10,7 +10,7 @@ main(_) ->
             Sys  = proplists:get_value(sys,Reltool),
             lists:foldl(fun(X,Acc)->
                 case X of
-                    {rel, "as_parser", Vers,_} -> Vers;
+                    {rel, "{{name}}", Vers,_} -> Vers;
                     _ -> Acc
                 end
             end, undefined, Sys);
