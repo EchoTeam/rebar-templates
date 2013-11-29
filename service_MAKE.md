@@ -11,6 +11,11 @@ Rebar is a rapidly changing project and often becomes incompatible with
 plugins. Your rebar may appear not working as you expected at some point.
 
 
+## make or make all
+
+Does `make get-deps compile`.
+
+
 ## make get-deps
 
 Downloads all deps of the project using rebar.config.lock. See more
@@ -20,6 +25,14 @@ about it in [Working with deps](service_DEPS.md).
 ## make update-deps
 
 Updates deps repositories using rebar.config.lock.
+
+
+## make compile
+
+Compiles the project. Compilation is performed by running `rebar compile`
+on each application/dependency.
+So it is crucial for all deps to make sure that all the code (including ports)
+is compiled with `rebar compile`. Use rebar hooks to achieve this.
 
 
 ## make update-lock
@@ -34,14 +47,6 @@ In the last case you will be asked if you want to continue because partial
 update-lock works though removing deps specified.
 
 [More info about rebar.config.lock](service_DEPS.md)
-
-
-## make compile
-
-Compiles the project. The same as just `make` or `make all`. Compilation is
-performed by running `rebar compile` on each application/dependency.
-So it is crucial for all deps to make sure that all the code (including ports)
-is compiled with `rebar compile`. Use rebar hooks to achieve this.
 
 
 ## make clean

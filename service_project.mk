@@ -25,7 +25,7 @@ REBAR := $(REBAR_FREEDOM)
 DEFAULT_LOG_DIR  := /var/log/$(SERVICE_NAME)
 DEV_LOG_DIR      := $(abspath ./rel/$(SERVICE_NAME)/log)
 
-all: compile
+all: get-deps compile
 
 compile:
 	$(REBAR) compile

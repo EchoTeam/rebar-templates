@@ -9,7 +9,7 @@ main(_) ->
          lists:foldl(
             fun(X,Acc)-> 
                   case X of 
-                      {rel,"{{name}}",Vers,_} -> Vers; 
+                      {rel,"{{name}}",Vers,_} -> Vers;
                   _ -> Acc
                end 
          end,
