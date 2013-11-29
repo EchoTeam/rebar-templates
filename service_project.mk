@@ -30,7 +30,7 @@ all: compile
 compile: update-deps
 	$(eval ROOT_APP_NAME := $(shell ./bin/appname.erl))
 	# Making plugins available first:
-	$(REBAR) compile apps=$(ROOT_APP_NAME),echo_rebar_plugins
+	$(REBAR) compile apps=$(ROOT_APP_NAME),lager,echo_rebar_plugins
 	$(REBAR) compile
 	
 update-lock:
@@ -49,8 +49,8 @@ else
 endif
 	$(eval ROOT_APP_NAME := $(shell ./bin/appname.erl))
 	# Making lock-deps available first:
-	$(REBAR) compile apps=$(ROOT_APP_NAME),echo_rebar_plugins,rebar_lock_deps_plugin
-	$(REBAR) lock-deps skip_deps=true keep_first=echo_rebar_plugins,lager
+	$(REBAR) compile
+	$(REBAR) lock-deps skip_deps=true keep_first=lager,echo_rebar_plugins
 	@touch deps/.updated
 
 get-deps:
