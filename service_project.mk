@@ -25,7 +25,7 @@ REBAR := $(REBAR_FREEDOM)
 DEFAULT_LOG_DIR  := /var/log/$(SERVICE_NAME)
 DEV_LOG_DIR      := $(abspath ./rel/$(SERVICE_NAME)/log)
 
-all: get-deps compile
+all: update-deps compile
 
 compile:
 	$(REBAR) compile
@@ -46,17 +46,21 @@ else
 endif
 	$(MAKE) compile # compiling to make lock-deps available
 	$(REBAR_FREEDOM) lock-deps skip_deps=true keep_first=lager,echo_rebar_plugins
+	@touch deps/.updated
 
 get-deps:
 	$(REBAR_LOCKED) get-deps
 
-update-deps:
+update-deps: deps/.updated
+
+deps/.updated: rebar.config.lock
 	$(REBAR_LOCKED) update-deps ignore_deps=true
+	@touch deps/.updated
 
 rel:
 	$(MAKE) -C rel LOG_DIR="$(LOG_DIR)"
 
-generate: compile rel
+generate: update-deps compile rel
 	$(eval relvsn := $(shell bin/relvsn-get.erl))
 	cd rel; $(REBAR_BIN) generate -f
 	cp rel/$(SERVICE_NAME)/releases/$(relvsn)/$(SERVICE_NAME).boot rel/$(SERVICE_NAME)/releases/$(relvsn)/start.boot #workaround for rebar bug
@@ -70,7 +74,7 @@ test:
 	$(REBAR) eunit skip_deps=meck,lager
 
 # make target system for production
-target: clean update-deps
+target: clean
 	$(MAKE) generate LOG_DIR="$(DEFAULT_LOG_DIR)"
 
 
@@ -97,6 +101,6 @@ upgrade-from: clean
 	$(MAKE) upgrade LOG_DIR="$(DEV_LOG_DIR)"
 
 # runs the service
-run: get-deps
+run:
 	$(MAKE) generate LOG_DIR="$(DEV_LOG_DIR)"
 	./rel/$(SERVICE_NAME)/bin/$(SERVICE_NAME) -u `whoami` -l "$(DEV_LOG_DIR)" console -s sync
