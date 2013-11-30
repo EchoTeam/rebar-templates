@@ -66,7 +66,7 @@ rel:
 	$(MAKE) -C rel LOG_DIR="$(LOG_DIR)"
 
 generate: update-deps compile rel
-	$(eval relvsn := $(shell bin/relvsn-get.erl))
+	$(eval relvsn := $(shell bin/relvsn.erl))
 	cd rel; $(REBAR_BIN) generate -f
 	cp rel/$(SERVICE_NAME)/releases/$(relvsn)/$(SERVICE_NAME).boot rel/$(SERVICE_NAME)/releases/$(relvsn)/start.boot #workaround for rebar bug
 	echo $(relvsn) > rel/$(SERVICE_NAME)/relvsn

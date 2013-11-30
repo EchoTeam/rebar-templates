@@ -17,8 +17,8 @@
 {file,     "service_project.mk", "project.mk"}.
 {file,     "service_rebar.config", "rebar.config"}.
 
-{template, "service_relvsn-get.erl", "bin/relvsn-get.erl"}.
-{chmod, 8#744, "bin/relvsn-get.erl"}.
+{template, "service_relvsn.erl", "bin/relvsn.erl"}.
+{chmod, 8#744, "bin/relvsn.erl"}.
 {template, "service_appname.erl", "bin/appname.erl"}.
 {chmod, 8#744, "bin/appname.erl"}.
 
