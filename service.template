@@ -17,10 +17,11 @@
 {file,     "service_project.mk", "project.mk"}.
 {file,     "service_rebar.config", "rebar.config"}.
 
-{template, "service_relvsn.erl", "bin/relvsn.erl"}.
-{chmod, 8#744, "bin/relvsn.erl"}.
-{template, "service_appname.erl", "bin/appname.erl"}.
-{chmod, 8#744, "bin/appname.erl"}.
+{template, "service_bin/relvsn.erl", "bin/relvsn.erl"}.
+{chmod,    8#744, "bin/relvsn.erl"}.
+{template, "service_bin/appname.erl", "bin/appname.erl"}.
+{chmod,    8#744, "bin/appname.erl"}.
+{file,     "service_bin/README", "bin/README"}.
 
 {file, "service_rpm-build.config", "rpm-build.config"}.
 {template, "service_app_file", "ebin/{{name}}.app"}.
