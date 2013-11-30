@@ -9,5 +9,6 @@ echo "############################################################"
 echo "# Run manually:"
 echo "#   git remote add origin git@git.jacknyfe.net:{{name}}.git"
 echo "#   git push origin master"
+echo "#   git push --tags"
 echo "############################################################"
 rm run.me.first.sh
