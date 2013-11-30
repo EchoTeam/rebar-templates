@@ -78,7 +78,8 @@ clean:
 test:
 	$(REBAR) eunit skip_deps=meck,lager
 
-# make target system for production
+# Make target system for production
+# Invoked by otp-release-scripts
 target: clean
 	$(MAKE) generate LOG_DIR="$(DEFAULT_LOG_DIR)"
 
@@ -88,7 +89,7 @@ target: clean
 ## in development environment only. ##
 ######################################
 
-# generates upgrade upon what is in rel/$(SERVICE_NAME)
+# Generates upgrade upon what is in rel/$(SERVICE_NAME)
 upgrade:
 	@[ -f rel/$(SERVICE_NAME)/relvsn ] || (echo "Run 'make target' first" && exit 1)
 	$(eval prev_vsn := $(shell cat rel/$(SERVICE_NAME)/relvsn))
@@ -97,7 +98,7 @@ upgrade:
 	$(MAKE) generate LOG_DIR="$(DEV_LOG_DIR)"
 	cd rel; $(REBAR_BIN) generate-upgrade previous_release=$(SERVICE_NAME)_$(prev_vsn)
 
-# generate upgrade upon a specific git revision
+# Generate upgrade upon a specific git revision
 upgrade-from: clean
 	$(eval cur_rev := $(shell git rev-parse --abbrev-ref HEAD))
 	git checkout $(rev)
@@ -105,7 +106,7 @@ upgrade-from: clean
 	git checkout $(cur_rev)
 	$(MAKE) upgrade LOG_DIR="$(DEV_LOG_DIR)"
 
-# runs the service
+# Runs the service
 run:
 	$(MAKE) generate LOG_DIR="$(DEV_LOG_DIR)"
 	./rel/$(SERVICE_NAME)/bin/$(SERVICE_NAME) -u `whoami` -l "$(DEV_LOG_DIR)" console -s sync
