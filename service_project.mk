@@ -12,7 +12,7 @@
 
 .PHONY: all compile test clean target generate rel
 .PHONY: update-lock get-deps update-deps
-.PHONY: run upgrade upgrade-from
+.PHONY: run run-no-sync upgrade dev-generate dev-target
 
 REBAR_BIN := $(abspath ./)/rel/../rebar # "rel/../" is a workaround for rebar bug
 ifeq ($(wildcard $(REBAR_BIN)),)
