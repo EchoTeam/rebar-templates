@@ -35,8 +35,8 @@ compile: update-deps
 	
 update-lock:
 ifdef apps
-	@echo "Updating rebar.config.lock for $(apps)..."
 	$(eval apps_list = $(shell echo $(apps) | sed 's/,/ /g'))
+	@echo "Updating rebar.config.lock for $(apps)..."
 	@for app in $(apps_list); do \
 		rmcmd="rm -rI ./deps/$$app"; \
 		echo "WARNING: Make sure you don't have code left to push in ./deps/$$app directory."; \
@@ -89,24 +89,26 @@ target: clean
 ## in development environment only. ##
 ######################################
 
-# Generates upgrade upon what is in rel/$(SERVICE_NAME)
+dev-generate:
+	$(MAKE) generate LOG_DIR="$(DEV_LOG_DIR)"
+
+dev-target: clean dev-generate
+
+# Generates upgrade upon what is currently in rel/$(SERVICE_NAME)
 upgrade:
-	@[ -f rel/$(SERVICE_NAME)/relvsn ] || (echo "Run 'make target' first" && exit 1)
 	$(eval prev_vsn := $(shell cat rel/$(SERVICE_NAME)/relvsn))
+	@[ -n "$(prev_vsn)" ] || (echo "Run 'make dev-target' first" && exit 1)
 	-rm -rf rel/$(SERVICE_NAME)_$(prev_vsn)
 	mv rel/$(SERVICE_NAME) rel/$(SERVICE_NAME)_$(prev_vsn)
-	$(MAKE) generate LOG_DIR="$(DEV_LOG_DIR)"
-	cd rel; $(REBAR_BIN) generate-upgrade previous_release=$(SERVICE_NAME)_$(prev_vsn)
-
-# Generate upgrade upon a specific git revision
-upgrade-from: clean
-	$(eval cur_rev := $(shell git rev-parse --abbrev-ref HEAD))
-	git checkout $(rev)
-	$(MAKE) target LOG_DIR="$(DEV_LOG_DIR)"
-	git checkout $(cur_rev)
-	$(MAKE) upgrade LOG_DIR="$(DEV_LOG_DIR)"
+	$(MAKE) dev-generate
+	cd rel && $(REBAR_BIN) generate-upgrade previous_release=$(SERVICE_NAME)_$(prev_vsn)
+	@pkg_name="$(SERVICE_NAME)_`cat rel/$(SERVICE_NAME)/relvsn`" &&\
+	mv rel/$$pkg_name.tar.gz rel/$(SERVICE_NAME)/releases/ &&\
+	./rel/$(SERVICE_NAME)/bin/$(SERVICE_NAME) -u `whoami` -l "$(DEV_LOG_DIR)" upgrade $$pkg_name
 
 # Runs the service
-run:
-	$(MAKE) generate LOG_DIR="$(DEV_LOG_DIR)"
+run: dev-generate
 	./rel/$(SERVICE_NAME)/bin/$(SERVICE_NAME) -u `whoami` -l "$(DEV_LOG_DIR)" console -s sync
+
+run-no-sync: dev-generate
+	./rel/$(SERVICE_NAME)/bin/$(SERVICE_NAME) -u `whoami` -l "$(DEV_LOG_DIR)" console

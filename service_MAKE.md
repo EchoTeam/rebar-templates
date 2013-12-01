@@ -65,30 +65,29 @@ into `rel/{service_name}` directory.
 ## make run
 
 Generates a release target system and runs the project.
+[sync](service_DEV.md#changing-code) is active.  For development environment only.
+
+## make run-no-sync
+
+The same as `make run` but without [sync](service_DEV.md#changing-code).
 For development environment only.
 
 
 ## make upgrade
 
 Generates an Erlang release upgrade upon what is currently in
-`rel/{service_name}` directory. For development environment only.
+`rel/{service_name}` directory and apply the upgrade
+to the running node. For development environment only.
 A use case might be as shown below:
 
-    $ make target # it will generate rel/{service_name} directory
     $ git checkout {an_older_rev} # checking out a specific past git revision
+    $ make run-no-sync # no-sync as we do not want modules to be auto-loaded
+    $ git checkout master # checking out the current revision
     $ make upgrade
 
-You can find the upgrade in `rel/{service_name}_{relvsn}.tar.gz
+or
 
-
-## make upgrade-from
-
-Generates an Erlang release upgrade of the current git HEAD upon a specific
-git revision. For development environment only. It is a shortcut for
-the use case described in the prvious section. It is better to commit all
-changes before using this. Example:
-
-    $ git co -b {my_branch}
-    $ working...
-    $ git commit .
-    $ make upgrade-from rev=master
+    $ git checkout master
+    $ make run-no-sync
+    $ git checkout {your_branch}
+    $ make upgrade
