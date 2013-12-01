@@ -81,6 +81,7 @@ to the running node. For development environment only.
 A use case might be as shown below:
 
     $ git checkout {an_older_rev} # checking out a specific past git revision
+    $ make clean
     $ make run-no-sync # no-sync as we do not want modules to be auto-loaded
     $ git checkout master # checking out the current revision
     $ make upgrade
@@ -88,6 +89,7 @@ A use case might be as shown below:
 or
 
     $ git checkout master
+    $ make clean
     $ make run-no-sync
     $ git checkout {your_branch}
     $ make upgrade
