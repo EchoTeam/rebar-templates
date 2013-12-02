@@ -16,11 +16,14 @@
       {app,lager_syslog,[{mod_cond,app},{incl_cond,include}]},
       {app,node_mon,[{mod_cond,app},{incl_cond,include}]}]}.
 {target_dir,"{{name}}"}.
+{ovarlay_vars,"vars/vars.default.config"}.
 {overlay,[{mkdir,"log"},
+          {mkdir,"etc"},
+          {template,"files/sys.config","releases/\{\{rel_vsn\}\}/sys.config"},
+          {template,"files/service.config","etc/\{\{service_name\}\}.config"},
+          {template,"files/vm.args","releases/\{\{rel_vsn\}\}/vm.args"},
+          {template,"files/service","bin/\{\{service_name\}\}"},
           {copy,"files/erl","\{\{erts_vsn\}\}/bin/erl"},
           {copy,"files/nodetool","\{\{erts_vsn\}\}/bin/nodetool"},
-          {copy,"files/{{name}}","bin/{{name}}"},
           {copy,"files/remove_release.escript","bin/remove_release.escript"},
-          {copy,"files/install_upgrade.escript","bin/install_upgrade.escript"},
-          {copy,"files/sys.config","releases/\{\{rel_vsn\}\}/sys.config"},
-          {copy,"files/vm.args","releases/\{\{rel_vsn\}\}/vm.args"}]}.
+          {copy,"files/install_upgrade.escript","bin/install_upgrade.escript"}]}.

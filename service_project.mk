@@ -22,8 +22,8 @@ REBAR_FREEDOM := $(REBAR_BIN) -C rebar.config
 REBAR_LOCKED  := $(REBAR_BIN) -C rebar.config.lock skip_deps=true
 REBAR := $(REBAR_FREEDOM)
 
-DEFAULT_LOG_DIR  := /var/log/$(SERVICE_NAME)
-DEV_LOG_DIR      := $(abspath ./rel/$(SERVICE_NAME)/log)
+DEFAULT_OVERLAY_VARS := vars/vars.default.config
+DEV_OVERLAY_VARS     := vars/vars.dev.config
 
 all: compile
 
@@ -63,11 +63,12 @@ deps/.updated: rebar.config.lock
 	@touch deps/.updated
 
 rel:
-	$(MAKE) -C rel LOG_DIR="$(LOG_DIR)"
+	$(MAKE) -C rel
 
 generate: update-deps compile rel
 	$(eval relvsn := $(shell bin/relvsn.erl))
-	cd rel; $(REBAR_BIN) generate -f
+	$(eval OVERLAY_VARS ?= $(DEFAULT_OVERLAY_VARS))
+	cd rel && $(REBAR_BIN) generate -f overlay_vars=$(OVERLAY_VARS)
 	cp rel/$(SERVICE_NAME)/releases/$(relvsn)/$(SERVICE_NAME).boot rel/$(SERVICE_NAME)/releases/$(relvsn)/start.boot #workaround for rebar bug
 	echo $(relvsn) > rel/$(SERVICE_NAME)/relvsn
 
@@ -80,8 +81,7 @@ test:
 
 # Make target system for production
 # Invoked by otp-release-scripts
-target: clean
-	$(MAKE) generate LOG_DIR="$(DEFAULT_LOG_DIR)"
+target: clean generate
 
 
 ######################################
@@ -90,7 +90,7 @@ target: clean
 ######################################
 
 dev-generate:
-	$(MAKE) generate LOG_DIR="$(DEV_LOG_DIR)"
+	$(MAKE) generate OVERLAY_VARS=$(DEV_OVERLAY_VARS)
 
 dev-target: clean dev-generate
 
@@ -104,11 +104,11 @@ upgrade:
 	cd rel && $(REBAR_BIN) generate-upgrade previous_release=$(SERVICE_NAME)_$(prev_vsn)
 	@pkg_name="$(SERVICE_NAME)_`cat rel/$(SERVICE_NAME)/relvsn`" &&\
 	mv rel/$$pkg_name.tar.gz rel/$(SERVICE_NAME)/releases/ &&\
-	./rel/$(SERVICE_NAME)/bin/$(SERVICE_NAME) -u `whoami` -l "$(DEV_LOG_DIR)" upgrade $$pkg_name
+	./rel/$(SERVICE_NAME)/bin/$(SERVICE_NAME) upgrade $$pkg_name
 
 # Runs the service
 run: dev-generate
-	./rel/$(SERVICE_NAME)/bin/$(SERVICE_NAME) -u `whoami` -l "$(DEV_LOG_DIR)" console -s sync
+	./rel/$(SERVICE_NAME)/bin/$(SERVICE_NAME) console -s sync
 
 run-no-sync: dev-generate
-	./rel/$(SERVICE_NAME)/bin/$(SERVICE_NAME) -u `whoami` -l "$(DEV_LOG_DIR)" console
+	./rel/$(SERVICE_NAME)/bin/$(SERVICE_NAME) console

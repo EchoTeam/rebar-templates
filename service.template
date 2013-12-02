@@ -5,6 +5,7 @@
     {author_email,"dev@aboutecho.com"},
     {description, "Fill in description of project here."}
 ]}.
+{dir, "bin"}.
 {dir, "ebin"}.
 {dir, "test"}.
 {dir, "rel"}.
@@ -19,7 +20,7 @@
 
 {template, "service_bin/relvsn.erl", "bin/relvsn.erl"}.
 {chmod,    8#744, "bin/relvsn.erl"}.
-{template, "service_bin/appname.erl", "bin/appname.erl"}.
+{file,     "service_bin/appname.erl", "bin/appname.erl"}.
 {chmod,    8#744, "bin/appname.erl"}.
 {file,     "service_bin/README", "bin/README"}.
 
@@ -32,15 +33,19 @@
 {template, "service_rel/reltool.config.in", "rel/reltool.config.in"}.
 {file,     "service_rel/Makefile", "rel/Makefile"}.
 
+%rel/vars
+{template, "service_rel/vars/vars.default.config", "rel/vars/vars.default.config"}.
+{template, "service_rel/vars/vars.dev.config", "rel/vars/vars.dev.config"}.
+
 % rel/files
 {file,     "service_rel/files/erl", "rel/files/erl"}.
 {chmod,    8#744,  "rel/files/erl"}.
 {file,     "service_rel/files/nodetool", "rel/files/nodetool"}.
 {chmod,    8#744,  "rel/files/nodetool"}.
-{template, "service_rel/files/service", "rel/files/{{name}}"}.
-{chmod,    8#744,  "rel/files/{{name}}"}.
-{template, "service_rel/files/vm.args", "rel/files/vm.args"}.
+{file,     "service_rel/files/service", "rel/files/service"}.
+{chmod,    8#744,  "rel/files/service"}.
+{file,     "service_rel/files/vm.args", "rel/files/vm.args"}.
 {file,     "service_rel/files/install_upgrade.escript", "rel/files/install_upgrade.escript"}.
 {file,     "service_rel/files/remove_release.escript", "rel/files/remove_release.escript"}.
-{template, "service_rel/files/sys.config.in", "rel/files/sys.config.in"}.
-{file,     "service_rel/files/Makefile", "rel/files/Makefile"}.
+{file,     "service_rel/files/sys.config", "rel/files/sys.config"}.
+{file,     "service_rel/files/service.config", "rel/files/service.config"}.

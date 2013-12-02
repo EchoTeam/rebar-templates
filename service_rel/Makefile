@@ -1,14 +1,10 @@
-.PHONY: reltool.config files clean
+.PHONY: reltool.config clean
 
-all: reltool.config files
+all: reltool.config
 
-reltool.config:
+reltool.config: reltool.config.in
 	$(eval VSN := $(shell git describe --always --tags | sed s/-/_/g))
 	m4 -DRELVSN="${VSN}" reltool.config.in > reltool.config
 
-files:
-	$(MAKE) -C files LOG_DIR="$(LOG_DIR)"
-
 clean:
 	rm -f reltool.config
-	$(MAKE) -C files clean
