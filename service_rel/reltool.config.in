@@ -16,7 +16,6 @@
       {app,lager_syslog,[{mod_cond,app},{incl_cond,include}]},
       {app,node_mon,[{mod_cond,app},{incl_cond,include}]}]}.
 {target_dir,"{{name}}"}.
-{ovarlay_vars,"vars/vars.default.config"}.
 {overlay,[{mkdir,"log"},
           {mkdir,"etc"},
           {template,"files/sys.config","releases/\{\{rel_vsn\}\}/sys.config"},
