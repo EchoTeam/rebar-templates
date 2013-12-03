@@ -13,7 +13,6 @@ See also [README.md](README.md).
 
     $ git clone {url-to-the-repo}
     $ cd {service_name}
-    $ make get-deps
     $ make run
 
 ### Changing code
@@ -82,14 +81,15 @@ See also
 
 ### Cheking how target system build works:
 
-    $ git commit
     $ make target
 
-### Cheking how upgrade build works:
+### Cheking how upgrade works:
 
-    $ OLD_REV=`git rev-parse HEAD`
-    $ git commit
-    $ make upgrade-from=$OLD_REV
+    $ git checkout {an_older_rev} # checking out a specific past git revision
+    $ make clean
+    $ make run-no-sync # no-sync as we do not want modules to be auto-loaded
+    $ git checkout master # checking out the current revision
+    $ make upgrade
 
 
 
