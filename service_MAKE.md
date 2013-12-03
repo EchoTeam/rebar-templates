@@ -93,3 +93,9 @@ or
     $ make run-no-sync
     $ git checkout {your_branch}
     $ make upgrade
+
+## make downgrade
+
+The opposite of `make upgrade` and it is only meant to work right
+after `make upgrade`. Removes the last release and bring the system back
+to the previous state. For development environment only.

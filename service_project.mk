@@ -24,6 +24,7 @@ REBAR := $(REBAR_FREEDOM)
 
 DEFAULT_OVERLAY_VARS := vars/vars.default.config
 DEV_OVERLAY_VARS     := vars/vars.dev.config
+DEFAULT_TARGET_DIR   := $(SERVICE_NAME)
 
 all: compile
 
@@ -67,10 +68,11 @@ rel:
 
 generate: update-deps compile rel
 	$(eval relvsn := $(shell bin/relvsn.erl))
-	$(eval OVERLAY_VARS ?= $(DEFAULT_OVERLAY_VARS))
-	cd rel && $(REBAR_BIN) generate -f overlay_vars=$(OVERLAY_VARS)
-	cp rel/$(SERVICE_NAME)/releases/$(relvsn)/$(SERVICE_NAME).boot rel/$(SERVICE_NAME)/releases/$(relvsn)/start.boot #workaround for rebar bug
-	echo $(relvsn) > rel/$(SERVICE_NAME)/relvsn
+	$(eval overlay_vars ?= $(DEFAULT_OVERLAY_VARS))
+	$(eval target_dir   ?= $(DEFAULT_TARGET_DIR))
+	cd rel && $(REBAR_BIN) generate -f overlay_vars=$(overlay_vars) target_dir=$(target_dir)
+	cp rel/$(target_dir)/releases/$(relvsn)/$(SERVICE_NAME).boot rel/$(target_dir)/releases/$(relvsn)/start.boot #workaround for rebar bug
+	echo $(relvsn) > rel/$(target_dir)/relvsn
 
 clean:
 	$(REBAR) clean
@@ -90,25 +92,31 @@ target: clean generate
 ######################################
 
 dev-generate:
-	$(MAKE) generate OVERLAY_VARS=$(DEV_OVERLAY_VARS)
+	$(eval target_dir ?= $(DEFAULT_TARGET_DIR))
+	$(MAKE) generate overlay_vars=$(DEV_OVERLAY_VARS) target_dir=$(target_dir)
 
 dev-target: clean dev-generate
 
-# Generates upgrade upon what is currently in rel/$(SERVICE_NAME)
-upgrade:
-	$(eval prev_vsn := $(shell cat rel/$(SERVICE_NAME)/relvsn))
-	@[ -n "$(prev_vsn)" ] || (echo "Run 'make dev-target' first" && exit 1)
-	-rm -rf rel/$(SERVICE_NAME)_$(prev_vsn)
-	mv rel/$(SERVICE_NAME) rel/$(SERVICE_NAME)_$(prev_vsn)
-	$(MAKE) dev-generate
-	cd rel && $(REBAR_BIN) generate-upgrade previous_release=$(SERVICE_NAME)_$(prev_vsn)
-	@pkg_name="$(SERVICE_NAME)_`cat rel/$(SERVICE_NAME)/relvsn`" &&\
-	mv rel/$$pkg_name.tar.gz rel/$(SERVICE_NAME)/releases/ &&\
-	./rel/$(SERVICE_NAME)/bin/$(SERVICE_NAME) upgrade $$pkg_name
+# Generates upgrade upon what is currently in rel/$(DEFAULT_TARGET_DIR)
+upgrade: rel
+	$(eval cur_vsn := $(shell cat rel/$(DEFAULT_TARGET_DIR)/relvsn))
+	$(eval new_vsn  := $(shell bin/relvsn.erl))
+	$(eval new_target_dir := $(SERVICE_NAME)_$(new_vsn))
+	@[ -n "$(cur_vsn)" ] || (echo "Run 'make dev-target' first" && exit 1)
+	-rm -rf rel/$(new_target_dir)
+	$(MAKE) dev-generate target_dir=$(new_target_dir)
+	cd rel && $(REBAR_BIN) generate-upgrade target_dir=$(new_target_dir) previous_release=$(DEFAULT_TARGET_DIR)
+	mv rel/$(new_target_dir).tar.gz rel/$(DEFAULT_TARGET_DIR)/releases/
+	./rel/$(DEFAULT_TARGET_DIR)/bin/$(SERVICE_NAME) upgrade $(new_target_dir)
+
+downgrade:
+	$(eval cur_vsn := $(shell bin/relvsn.erl))
+	$(eval old_vsn := $(shell cat rel/$(DEFAULT_TARGET_DIR)/relvsn))
+	./rel/$(DEFAULT_TARGET_DIR)/bin/$(SERVICE_NAME) remove_release $(cur_vsn) $(old_vsn)
 
 # Runs the service
 run: dev-generate
-	./rel/$(SERVICE_NAME)/bin/$(SERVICE_NAME) console -s sync
+	./rel/$(DEFAULT_TARGET_DIR)/bin/$(SERVICE_NAME) console -s sync
 
 run-no-sync: dev-generate
-	./rel/$(SERVICE_NAME)/bin/$(SERVICE_NAME) console
+	./rel/$(DEFAULT_TARGET_DIR)/bin/$(SERVICE_NAME) console
