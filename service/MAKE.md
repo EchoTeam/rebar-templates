@@ -22,7 +22,7 @@ is compiled with `rebar compile`. Use rebar hooks to achieve this.
 ## make get-deps
 
 Downloads all deps of the project using rebar.config.lock. See more
-about it in [Working with deps](service_DEPS.md).
+about it in [Working with deps](DEPS.md).
 
 
 ## make update-deps
@@ -42,7 +42,7 @@ It is possible to only update specific deps using `apps` option:
 In the last case you will be asked if you want to continue because partial
 update-lock works though removing deps specified.
 
-[More info about rebar.config.lock](service_DEPS.md)
+[More info about rebar.config.lock](DEPS.md)
 
 
 ## make clean
@@ -65,11 +65,11 @@ into `rel/{service_name}` directory.
 ## make run
 
 Generates a release target system and runs the project.
-[sync](service_DEV.md#changing-code) is active.  For development environment only.
+[sync](DEV.md#changing-code) is active.  For development environment only.
 
 ## make run-no-sync
 
-The same as `make run` but without [sync](service_DEV.md#changing-code).
+The same as `make run` but without [sync](DEV.md#changing-code).
 For development environment only.
 
 

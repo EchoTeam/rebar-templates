@@ -10,42 +10,42 @@
 {dir, "test"}.
 {dir, "rel"}.
 {dir, "rel/files"}.
-{file,     "rebar", "rebar"}.
+{file,     "service/rebar", "rebar"}.
 {chmod,     8#744, "rebar"}.
-{template, "service_README.md", "README.md"}.
-{template, "service_gitignore", ".gitignore"}.
-{template, "service_Makefile", "Makefile"}.
-{file,     "service_project.mk", "project.mk"}.
-{file,     "service_rebar.config", "rebar.config"}.
+{template, "service/README.md", "README.md"}.
+{template, "service/.gitignore", ".gitignore"}.
+{template, "service/Makefile", "Makefile"}.
+{file,     "service/project.mk", "project.mk"}.
+{file,     "service/rebar.config", "rebar.config"}.
 
-{template, "service_bin/relvsn.erl", "bin/relvsn.erl"}.
+{template, "service/bin/relvsn.erl", "bin/relvsn.erl"}.
 {chmod,    8#744, "bin/relvsn.erl"}.
-{file,     "service_bin/appname.erl", "bin/appname.erl"}.
+{file,     "service/bin/appname.erl", "bin/appname.erl"}.
 {chmod,    8#744, "bin/appname.erl"}.
-{file,     "service_bin/README", "bin/README"}.
+{file,     "service/bin/README", "bin/README"}.
 
-{file, "service_rpm-build.config", "rpm-build.config"}.
-{template, "service_app_file", "ebin/{{name}}.app"}.
-{template, "service_run.me.first.sh", "run.me.first.sh"}.
+{file, "service/rpm-build.config", "rpm-build.config"}.
+{template, "service/ebin/service.app", "ebin/{{name}}.app"}.
+{template, "service/run.me.first.sh", "run.me.first.sh"}.
 {chmod, 8#744, "run.me.first.sh"}.
 
 % rel
-{template, "service_rel/reltool.config.in", "rel/reltool.config.in"}.
-{file,     "service_rel/Makefile", "rel/Makefile"}.
+{template, "service/rel/reltool.config.in", "rel/reltool.config.in"}.
+{file,     "service/rel/Makefile", "rel/Makefile"}.
 
 %rel/vars
-{template, "service_rel/vars/vars.default.config", "rel/vars/vars.default.config"}.
-{template, "service_rel/vars/vars.dev.config", "rel/vars/vars.dev.config"}.
+{template, "service/rel/vars/vars.default.config", "rel/vars/vars.default.config"}.
+{template, "service/rel/vars/vars.dev.config", "rel/vars/vars.dev.config"}.
 
 % rel/files
-{file,     "service_rel/files/erl", "rel/files/erl"}.
+{file,     "service/rel/files/erl", "rel/files/erl"}.
 {chmod,    8#744,  "rel/files/erl"}.
-{file,     "service_rel/files/nodetool", "rel/files/nodetool"}.
+{file,     "service/rel/files/nodetool", "rel/files/nodetool"}.
 {chmod,    8#744,  "rel/files/nodetool"}.
-{file,     "service_rel/files/service", "rel/files/service"}.
+{file,     "service/rel/files/service", "rel/files/service"}.
 {chmod,    8#744,  "rel/files/service"}.
-{file,     "service_rel/files/vm.args", "rel/files/vm.args"}.
-{file,     "service_rel/files/install_upgrade.escript", "rel/files/install_upgrade.escript"}.
-{file,     "service_rel/files/remove_release.escript", "rel/files/remove_release.escript"}.
-{file,     "service_rel/files/sys.config", "rel/files/sys.config"}.
-{file,     "service_rel/files/service.config", "rel/files/service.config"}.
+{file,     "service/rel/files/vm.args", "rel/files/vm.args"}.
+{file,     "service/rel/files/install_upgrade.escript", "rel/files/install_upgrade.escript"}.
+{file,     "service/rel/files/remove_release.escript", "rel/files/remove_release.escript"}.
+{file,     "service/rel/files/sys.config", "rel/files/sys.config"}.
+{file,     "service/rel/files/service.config", "rel/files/service.config"}.

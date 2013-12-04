@@ -1,6 +1,5 @@
 .eunit
 /deps
-ebin/*.app
 *.beam
 *.rpm
 erl_crash.dump
