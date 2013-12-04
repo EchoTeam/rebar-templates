@@ -60,12 +60,16 @@ Runs eunit tests of the project using `rebar eunit`.
 
 Generates a complete Erlang release target system and place the files
 into `rel/{service_name}` directory.
+Release version is generated automatically by running
+`git describe --always --tags`. It is recommended to `git tag` your
+changes before releasing them.
 
 
 ## make run
 
 Generates a release target system and runs the project.
 [sync](DEV.md#changing-code) is active.  For development environment only.
+
 
 ## make run-no-sync
 
@@ -78,6 +82,10 @@ For development environment only.
 Generates an Erlang release upgrade upon what is currently in
 `rel/{service_name}` directory and apply the upgrade
 to the running node. For development environment only.
+
+Release version is generated automatically by running
+`git describe --always --tags`.
+
 A use case might be as shown below:
 
     $ git checkout {an_older_rev} # checking out a specific past git revision
