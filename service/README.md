@@ -13,6 +13,6 @@ Copyright (c) {{copyright_year}} {{author_name}} <{{author_email}}>.  All rights
 
 ## General information
 
- * [Basic development workflow](https://github.com/EchoTeam/rebar-templates/blob/master/service_DEV.md)
- * [Makefile targets](https://github.com/EchoTeam/rebar-templates/blob/master/service_MAKE.md)
- * [Working with deps](https://github.com/EchoTeam/rebar-templates/blob/master/service_DEPS.md)
+ * [Basic development workflow](https://github.com/EchoTeam/rebar-templates/blob/master/service/DEV.md)
+ * [Makefile targets](https://github.com/EchoTeam/rebar-templates/blob/master/service/MAKE.md)
+ * [Working with deps](https://github.com/EchoTeam/rebar-templates/blob/master/service/DEPS.md)
