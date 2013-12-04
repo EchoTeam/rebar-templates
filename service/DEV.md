@@ -7,7 +7,7 @@
     $ rebar create template=service name={service_name} description="Describe your service here."
     $ ./run.me.first.sh
 
-See also [README.md](README.md).
+See also [README.md](../README.md).
 
 ### Cloning and running a fresh repo:
 
