@@ -1,9 +1,9 @@
 {variables, [
     {name, "myproject"}, 
-    {copyright_year, "2013"},
-    {author_name, "Jacknyfe"},
-    {author_email,"dev@aboutecho.com"},
-    {description, "Fill in description of project here."}
+    {copyright_year, "2014"},
+    {author_name, "Author Name"},
+    {author_email,"author@email.com"},
+    {description, "Fill in description of the project here."}
 ]}.
 {dir, "bin"}.
 {dir, "ebin"}.
