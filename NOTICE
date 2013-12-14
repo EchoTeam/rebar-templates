@@ -22,6 +22,3 @@ https://github.com/basho/lager_syslog
 
 sync
 https://github.com/rustyio/sync
-
-rebar-lock-deps
-https://github.com/lukyanov/rebar-lock-deps
