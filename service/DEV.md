@@ -68,6 +68,9 @@ Your root src dir can look like this:
 
 Those files, at compile time, will be place to corresponding applications ebin directories.
 
+`genappup` is a separate tool that you can find here:
+https://github.com/EchoTeam/genappup
+
 See also
 [genappup](https://github.com/EchoTeam/genappup) and
 [Appup Cookbook](http://www.erlang.org/doc/design_principles/appup_cookbook.html).
