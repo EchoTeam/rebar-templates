@@ -18,7 +18,7 @@ If you want to create a new directory layout for your new service you can do the
     $ ./run.me.first.sh
 
 This will generate the initial framework of a service that supports
-Erlang/OTP releases done through [otp-release-scripts](https://github.com/EchoTeam/otp-release-scripts). But it also can be used separately.
+Erlang/OTP releases.
 
 Note: You need rebar installed in your system, or placed in `<service_name>` directory.
 
