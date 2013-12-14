@@ -7,7 +7,9 @@
 ## If you really need to change this file, consider
 ## making the change generic and update the file in
 ## rebar-templates as well:
-## https://github.com/EchoTeam/rebar-templates/blob/master/service_project.mk
+## https://github.com/EchoTeam/rebar-templates/blob/master/service/project.mk
+## You can also get the up-to-date version by downloading the file
+## (using the link above).
 ##
 
 .PHONY: all compile test clean target generate rel
