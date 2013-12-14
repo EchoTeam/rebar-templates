@@ -2,7 +2,7 @@
       {erts,[{mod_cond,derived},{app_file,strip}]},
       {app_file,strip},
       {rel,"{{name}}","RELVSN",
-           [kernel,sasl,stdlib,lager,node_mon]},
+           [kernel,sasl,stdlib,lager]},
       {rel,"start_clean",[],[kernel,stdlib]},
       {boot_rel,"{{name}}"},
       {profile,embedded},
@@ -13,11 +13,11 @@
       {excl_app_filters,[".gitignore"]},
       {app,sync,[{mod_cond,app},{incl_cond,include}]},
       {app,lager,[{mod_cond,app},{incl_cond,include}]},
-      {app,lager_syslog,[{mod_cond,app},{incl_cond,include}]},
-      {app,node_mon,[{mod_cond,app},{incl_cond,include}]}]}.
+      {app,lager_syslog,[{mod_cond,app},{incl_cond,include}]}]}.
 {target_dir,"{{name}}"}.
 {overlay,[{mkdir,"log"},
           {mkdir,"etc"},
+          {template,"build.config","build.config"},
           {template,"files/sys.config","releases/\{\{rel_vsn\}\}/sys.config"},
           {template,"files/service.config","etc/\{\{service_name\}\}.config"},
           {template,"files/vm.args","releases/\{\{rel_vsn\}\}/vm.args"},
