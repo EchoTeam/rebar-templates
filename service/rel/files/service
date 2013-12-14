@@ -10,15 +10,17 @@
 ## If you really need to change this file, consider
 ## making the change generic and update the file in
 ## rebar-templates as well:
-## https://github.com/EchoTeam/rebar-templates/blob/master/service_rel/files/service
+## https://github.com/EchoTeam/rebar-templates/blob/master/service/rel/files/service
+## You can also get the up-to-date version by downloading the file
+## (using the link above).
 ##
 
 # uses : uname pwd whoami sudo basename cat mkdir egrep awk hostname date printf kill sleep logger sed
 
 SERVNAME={{service_name}}
 RUNNER_USER="{{runner_user}}"
-RUNNER_USER=${RUNNER_USER:-"`whoami`"}
-RUNNER_LOG_DIR={{log_dir}}
+WHOAMI=$(whoami)
+RUNNER_USER=${RUNNER_USER:-${WHOAMI}}
 
 function abort {
     echo $1
@@ -43,10 +45,25 @@ RUNNER_SCRIPT_DIR=$(cd ${0%/*} && pwd)
 CALLER_DIR=$PWD
 
 RUNNER_BASE_DIR=${RUNNER_SCRIPT_DIR%/*}
-RUNNER_ETC_DIR=$RUNNER_BASE_DIR/etc
+
+RUNNER_LOG_DIR={{log_dir}}
+RUNNER_ETC_DIR={{config_dir}}
+
+# Make relative paths absolute
+case $RUNNER_LOG_DIR in
+    /*) : ;; # nop
+    *) RUNNER_LOG_DIR=$RUNNER_BASE_DIR/$RUNNER_LOG_DIR ;;
+esac
+case $RUNNER_ETC_DIR in
+    /*) : ;; # nop
+    *) RUNNER_ETC_DIR=$RUNNER_BASE_DIR/$RUNNER_ETC_DIR ;;
+esac
+
+if ! [ -d ${RUNNER_ETC_DIR} ]; then
+    RUNNER_ETC_DIR=$RUNNER_BASE_DIR/etc
+fi
 # Note the trailing slash on $PIPE_DIR/
 PIPE_DIR=/tmp/$SERVNAME.$$/pipe/
-WHOAMI=$(whoami)
 
 # Make sure this script is running as the appropriate user
 if ([ "$RUNNER_USER" ] && [ "x$WHOAMI" != "x$RUNNER_USER" ]); then
@@ -67,16 +84,13 @@ START_ERL=`cat $RUNNER_BASE_DIR/releases/start_erl.data`
 ERTS_VSN=${START_ERL% *}
 APP_VSN=${START_ERL#* }
 
-# Use /etc/$NAME//vm.args if exists, otherwise releases/APP_VSN/vm.args, or
-# else etc/vm.args
+# Use $RUNNER_ETC_DIR/vm.args if exists, otherwise releases/APP_VSN/vm.args
 USE_DIR=$RUNNER_BASE_DIR
-if [ -e "/etc/$SERVNAME/vm.args" ]; then
-    VMARGS_PATH=/etc/$SERVNAME/vm.args
+if [ -e "$RUNNER_ETC_DIR/vm.args" ]; then
+    VMARGS_PATH="$RUNNER_ETC_DIR/vm.args"
 else
     if [ -e "$RUNNER_BASE_DIR/releases/$APP_VSN/vm.args" ]; then
         VMARGS_PATH="$RUNNER_BASE_DIR/releases/$APP_VSN/vm.args"
-    else
-        VMARGS_PATH="$RUNNER_ETC_DIR/vm.args"
     fi
 fi
 
