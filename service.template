@@ -24,9 +24,8 @@
 {chmod,    8#744, "bin/relvsn.erl"}.
 {file,     "service/bin/appname.erl", "bin/appname.erl"}.
 {chmod,    8#744, "bin/appname.erl"}.
-{file,     "service/bin/README", "bin/README"}.
 
-{file, "service/rpm-build.config", "rpm-build.config"}.
+{file, "service/rel/build.config", "rel/build.config"}.
 {template, "service/ebin/service.app", "ebin/{{name}}.app"}.
 {template, "service/run.me.first.sh", "run.me.first.sh"}.
 {chmod, 8#744, "run.me.first.sh"}.
