@@ -82,8 +82,11 @@ test:
 	$(REBAR) eunit skip_deps=meck,lager
 
 # Make target system for production
-# Invoked by otp-release-scripts
 target: clean generate
+
+# Generate upgrade archive
+generate-upgrade:
+	cd rel && $(REBAR_BIN) generate-upgrade previous_release=$(previous_release)
 
 
 ######################################
