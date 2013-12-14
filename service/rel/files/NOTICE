@@ -1,0 +1,9 @@
+The following files are copies or modified versions of the files from rebar project:
+
+ * service (priv/templates/simplenode.runner)
+ * nodetool (priv/templates/simplenode.nodetool)
+ * erl (priv/templates/simplenode.erl.script)
+ * install_upgrade.escript (priv/templates/simplenode.install_upgrade.escript)
+
+See the originals here:
+https://github.com/rebar/rebar/blob/master/priv/templates/

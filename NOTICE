@@ -1,0 +1,27 @@
+Echo Rebar Templates
+Copyright 2014 Echo (Jacknyfe, Inc.)
+
+This software is licensed under the Apache License, Version 2.0 (see
+LICENSE file).
+
+This software uses the following third party libraries that may have
+licenses differing from that of the software itself. You can find the
+libraries and their respective licenses below.
+
+Third Party Software
+====================
+
+rebar
+https://github.com/rebar/rebar
+
+lager
+https://github.com/basho/lager
+
+lager_syslog
+https://github.com/basho/lager_syslog
+
+sync
+https://github.com/rustyio/sync
+
+rebar-lock-deps
+https://github.com/lukyanov/rebar-lock-deps
