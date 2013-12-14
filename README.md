@@ -17,7 +17,7 @@ If you want to create a new directory layout for your new service you can do the
     $ rebar create template=service name=<service_name> description="Describe your service here."
     $ ./run.me.first.sh
 
-This will generate the initial framework of a service that supports
+This will generate the initial framework of an Erlang service that supports
 Erlang/OTP releases.
 
 Note: You need rebar installed in your system, or placed in `<service_name>` directory.
