@@ -19,7 +19,7 @@
           {mkdir,"etc"},
           {template,"build.config","build.config"},
           {template,"files/sys.config","releases/\{\{rel_vsn\}\}/sys.config"},
-          {template,"files/service.config","etc/\{\{service_name\}\}.config"},
+          {template,"files/app.config","etc/app.config"},
           {template,"files/vm.args","releases/\{\{rel_vsn\}\}/vm.args"},
           {template,"files/service","bin/\{\{service_name\}\}"},
           {copy,"files/erl","\{\{erts_vsn\}\}/bin/erl"},

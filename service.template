@@ -49,4 +49,4 @@
 {file,     "service/rel/files/install_upgrade.escript", "rel/files/install_upgrade.escript"}.
 {file,     "service/rel/files/remove_release.escript", "rel/files/remove_release.escript"}.
 {file,     "service/rel/files/sys.config", "rel/files/sys.config"}.
-{file,     "service/rel/files/service.config", "rel/files/service.config"}.
+{file,     "service/rel/files/app.config", "rel/files/app.config"}.
