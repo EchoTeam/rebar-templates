@@ -3,7 +3,7 @@
       {app_file,strip},
       {rel,"{{name}}","RELVSN",
            [kernel,sasl,stdlib,lager]},
-      {rel,"start_clean",[],[kernel,stdlib]},
+      {rel,"start_clean",[],[kernel,stdlib,corman]},
       {boot_rel,"{{name}}"},
       {profile,embedded},
       {incl_cond,derived},
@@ -13,7 +13,8 @@
       {excl_app_filters,[".gitignore"]},
       {app,sync,[{mod_cond,app},{incl_cond,include}]},
       {app,lager,[{mod_cond,app},{incl_cond,include}]},
-      {app,lager_syslog,[{mod_cond,app},{incl_cond,include}]}]}.
+      {app,lager_syslog,[{mod_cond,app},{incl_cond,include}]},
+      {app,corman,[{mod_cond,app},{incl_cond,include}]}]}.
 {target_dir,"{{name}}"}.
 {overlay,[{mkdir,"log"},
           {mkdir,"etc"},
