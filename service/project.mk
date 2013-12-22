@@ -15,6 +15,7 @@
 .PHONY: all compile test clean target generate rel
 .PHONY: update-lock get-deps update-deps
 .PHONY: run run-no-sync upgrade dev-generate dev-target
+.PHONY: pre-compile post-compile pre-clean post-clean
 
 REBAR_BIN := $(abspath ./)/rel/../rebar # "rel/../" is a workaround for rebar bug
 ifeq ($(wildcard $(REBAR_BIN)),)
@@ -30,11 +31,12 @@ DEFAULT_TARGET_DIR   := $(SERVICE_NAME)
 
 all: compile
 
-compile: update-deps
+compile: update-deps pre-compile
 	$(eval ROOT_APP_NAME := $(shell ./bin/appname.erl))
 	# Making plugins available first:
 	$(REBAR) compile apps=$(ROOT_APP_NAME),lager,echo_rebar_plugins
 	$(REBAR) compile
+	$(MAKE) post-compile
 	
 update-lock:
 ifdef apps
@@ -52,7 +54,7 @@ else
 endif
 	$(eval ROOT_APP_NAME := $(shell ./bin/appname.erl))
 	# Making lock-deps available first:
-	$(REBAR) compile
+	$(REBAR) compile apps=$(ROOT_APP_NAME),echo_rebar_plugins,rebar_lock_deps_plugin
 	$(REBAR) lock-deps skip_deps=true keep_first=lager,echo_rebar_plugins
 	@touch deps/.updated
 
@@ -76,9 +78,11 @@ generate: update-deps compile rel
 	cp rel/$(target_dir)/releases/$(relvsn)/$(SERVICE_NAME).boot rel/$(target_dir)/releases/$(relvsn)/start.boot #workaround for rebar bug
 	echo $(relvsn) > rel/$(target_dir)/relvsn
 
-clean:
+
+clean: pre-clean
 	$(REBAR) clean
 	rm -rf rel/$(SERVICE_NAME)*
+	$(MAKE) post-clean
 
 test:
 	$(REBAR) eunit skip_deps=meck,lager
@@ -90,6 +94,11 @@ target: clean generate
 generate-upgrade:
 	cd rel && $(REBAR_BIN) generate-upgrade previous_release=$(previous_release)
 
+# Targets to be overwritten outside project.mk:
+pre-compile:
+pre-clean:
+post-compile:
+post-clean:
 
 ######################################
 ## All targets below are for use    ##
