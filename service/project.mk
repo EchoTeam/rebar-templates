@@ -15,7 +15,7 @@
 .PHONY: all compile test clean target generate rel
 .PHONY: update-lock get-deps update-deps
 .PHONY: run run-no-sync upgrade dev-generate dev-target
-.PHONY: pre-compile post-compile pre-clean post-clean
+.PHONY: pre-compile post-compile pre-clean post-clean post-update-lock
 
 REBAR_BIN := $(abspath ./)/rel/../rebar # "rel/../" is a workaround for rebar bug
 ifeq ($(wildcard $(REBAR_BIN)),)
@@ -37,9 +37,10 @@ compile: update-deps pre-compile
 	$(REBAR) compile apps=$(ROOT_APP_NAME),lager,echo_rebar_plugins
 	$(REBAR) compile
 	$(MAKE) post-compile
-	
+
 update-lock:
 ifdef apps
+	@$(MAKE) update-deps # Sync deps dir with current rebar.config.lock first
 	$(eval apps_list = $(shell echo $(apps) | sed 's/,/ /g'))
 	@echo "Updating rebar.config.lock for $(apps)..."
 	@for app in $(apps_list); do \
@@ -57,6 +58,7 @@ endif
 	$(REBAR) compile apps=$(ROOT_APP_NAME),lager,echo_rebar_plugins,rebar_lock_deps_plugin
 	$(REBAR) lock-deps skip_deps=true keep_first=lager,echo_rebar_plugins
 	@touch deps/.updated
+	$(MAKE) post-update-lock
 
 get-deps:
 	$(REBAR_LOCKED) get-deps
@@ -99,6 +101,7 @@ pre-compile:
 pre-clean:
 post-compile:
 post-clean:
+post-update-lock:
 
 ######################################
 ## All targets below are for use    ##
