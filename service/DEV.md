@@ -66,7 +66,7 @@ Your root src dir can look like this:
         {foreign_app2}.appup.src
     priv/
 
-Those files, at compile time, will be place to corresponding applications ebin directories.
+Those files, at compile time, will be placed to corresponding applications ebin directories.
 
 See also
 [genappup](https://github.com/EchoTeam/genappup) and
@@ -76,8 +76,18 @@ See also
 
     $ cd {project_root}
     $ vim rebar.config # meaning you add a new app record to deps section
-    $ make update-lock apps={new_app_name}
+    $ make update-lock apps={your_new_app}
     $ git commit rebar.config rebar.config.lock
+    
+If you want to include a new application into a release as well, you should edit
+`rel/reltool.config.in` by adding the following line to the list of applications:
+
+    {app,your_new_app,[{mod_cond,app},{incl_cond,include}]},
+    
+And if you also want your applciation to be automatically started, change "rel" section:
+
+    {rel,"{{name}}","RELVSN",
+        [kernel,sasl,stdlib,lager,corman,your_new_app]},
 
 ### Cheking how target system build works:
 
