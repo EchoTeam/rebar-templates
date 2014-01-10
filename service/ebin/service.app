@@ -1,3 +1,3 @@
-{application,{{name}},
+{application,{{name}}_service,
     [{description,"{{description}}"},
         {modules,[]}]}.

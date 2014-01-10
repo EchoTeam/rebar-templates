@@ -32,9 +32,8 @@ DEFAULT_TARGET_DIR   := $(SERVICE_NAME)
 all: compile
 
 compile: update-deps pre-compile
-	$(eval ROOT_APP_NAME := $(shell ./bin/appname.erl))
 	# Making plugins available first:
-	$(REBAR) compile apps=$(ROOT_APP_NAME),lager,echo_rebar_plugins
+	$(REBAR) compile apps=$(SERVICE_NAME)_service,lager,echo_rebar_plugins
 	$(REBAR) compile
 	$(MAKE) post-compile
 
@@ -53,9 +52,8 @@ ifdef apps
 else
 	$(REBAR) update-deps
 endif
-	$(eval ROOT_APP_NAME := $(shell ./bin/appname.erl))
 	# Making lock-deps available first:
-	$(REBAR) compile apps=$(ROOT_APP_NAME),lager,echo_rebar_plugins,rebar_lock_deps_plugin
+	$(REBAR) compile apps=$(SERVICE_NAME)_service,lager,echo_rebar_plugins,rebar_lock_deps_plugin
 	$(REBAR) lock-deps skip_deps=true keep_first=lager,echo_rebar_plugins
 	@touch deps/.updated
 	$(MAKE) post-update-lock
