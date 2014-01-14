@@ -24,7 +24,7 @@
 {chmod,    8#744, "bin/relvsn.erl"}.
 
 {file, "service/rel/build.config", "rel/build.config"}.
-{template, "service/ebin/service.app", "ebin/{{name}}_service.app"}.
+{template, "service/ebin/service.app", "ebin/service.app"}.
 {template, "service/run.me.first.sh", "run.me.first.sh"}.
 {chmod, 8#744, "run.me.first.sh"}.
 
