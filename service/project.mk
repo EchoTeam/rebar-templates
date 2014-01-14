@@ -33,7 +33,7 @@ all: compile
 
 compile: update-deps pre-compile
 	# Making plugins available first:
-	$(REBAR) compile apps=$(SERVICE_NAME)_service,lager,echo_rebar_plugins
+	$(REBAR) compile apps=service,lager,echo_rebar_plugins
 	$(REBAR) compile
 	$(MAKE) post-compile
 
@@ -53,7 +53,7 @@ else
 	$(REBAR) update-deps
 endif
 	# Making lock-deps available first:
-	$(REBAR) compile apps=$(SERVICE_NAME)_service,lager,echo_rebar_plugins,rebar_lock_deps_plugin
+	$(REBAR) compile apps=service,lager,echo_rebar_plugins,rebar_lock_deps_plugin
 	$(REBAR) lock-deps skip_deps=true keep_first=lager,echo_rebar_plugins
 	@touch deps/.updated
 	$(MAKE) post-update-lock
