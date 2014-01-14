@@ -209,6 +209,10 @@ case "$1" in
         RUN_PARAM=$(printf "\'%s\' " "$@")
         export HEART_COMMAND="/usr/bin/env THISISRESTART=restart $RUNNER_SCRIPT_DIR/$SERVNAME $HEART_OPTION $RUN_PARAM"
         mkdir -p $PIPE_DIR
+        if [ ! -w $PIPE_DIR ]; then
+            echo "$PIPE_DIR is not writable" 1>&2
+            exit 1
+        fi
 
         ( flock -n 9 || abort "$SERVNAME already runs and just waiting for restart"
 
