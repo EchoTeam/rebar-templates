@@ -16,8 +16,6 @@
 {template, "service/.gitignore", ".gitignore"}.
 {template, "service/Makefile", "Makefile"}.
 {file,     "service/project.mk", "project.mk"}.
-{template, "service/project.sh", "project.sh"}.
-{chmod,     8#744, "project.sh"}.
 {file,     "service/rebar.config", "rebar.config"}.
 
 {template, "service/bin/relvsn.erl", "bin/relvsn.erl"}.
