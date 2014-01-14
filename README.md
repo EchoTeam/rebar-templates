@@ -25,6 +25,9 @@ Erlang/OTP releases.
 Now you can run your new service:
 
     $ make run
+    
+The service layout is compatible with [service-packager](https://github.com/EchoTeam/service-packager).
+
 
 See more info on the service layout:
  * [Basic development workflow](service/DEV.md)
