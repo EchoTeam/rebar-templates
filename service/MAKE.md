@@ -65,6 +65,16 @@ Release version is generated automatically by running
 changes before releasing them.
 
 
+## make generate-upgrade
+
+Generates an Erlang upgrade package and place the files into the archive
+`rel/{service_name}/releases/*.tar.gz`. Takes an argument `previous_release`
+where the path to the previous release is specified. The path should be
+relative to `rel/` directory. Example:
+
+    $ make generate-upgrade previous_release=demo-0.1.0
+
+
 ## make run
 
 Generates a release target system and runs the project.
@@ -79,7 +89,7 @@ For development environment only.
 
 ## make upgrade
 
-Generates an Erlang release upgrade upon what is currently in
+Generates an Erlang release upgrade against what is currently in
 `rel/{service_name}` directory and apply the upgrade
 to the running node. For development environment only.
 
