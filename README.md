@@ -28,6 +28,8 @@ Now you can run your new service:
     
 The service layout is compatible with [service-packager](https://github.com/EchoTeam/service-packager).
 
+Requirements: erlang, git
+
 
 See more info on the service layout:
  * [Basic development workflow](service/DEV.md)
