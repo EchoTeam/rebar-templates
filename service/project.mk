@@ -81,6 +81,7 @@ generate: update-deps compile rel
 
 clean: pre-clean
 	$(REBAR) clean
+	rm -f rel/reltool.config
 	rm -rf rel/$(SERVICE_NAME)*
 	$(MAKE) post-clean
 
