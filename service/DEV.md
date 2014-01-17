@@ -35,7 +35,7 @@ in detached state ("Not currently at any branch").
 
     $ cd deps/{your_app}
     $ vim src/*.erl # meaning you change your code in some way
-    $ OLD_REV=`git rev-parse HEAD` # meaning your just now the current rev
+    $ OLD_REV=`git rev-parse HEAD` # meaning your just know the current rev
     $ git commit
     $ genappup $OLD_REV
 
