@@ -192,7 +192,7 @@ case "$1" in
         RES=`ping_node`
         if [ "$RES" = "pong" ]; then
             echo "Node is already running!"
-            exit 1
+            exit 0
         fi
         case "$1" in
             start)
