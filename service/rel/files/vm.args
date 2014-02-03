@@ -2,7 +2,7 @@
 -sname {{service_name}}
 
 ## Cookie for distributed erlang
-#-setcookie XXX
+# -setcookie {{service_name}}
 
 ## Heartbeat management; auto-restarts VM if it dies or becomes unresponsive
 ## (Disabled by default..use with caution!)

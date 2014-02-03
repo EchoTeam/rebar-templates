@@ -133,15 +133,18 @@ REMSH_NAME_ARG="$REMSH_TYPE remsh`date +%s`@$RUNHOST"
 REMSH_REMSH_ARG="-remsh $REMSH_NAME@$RUNHOST"
 
 # Extract the target cookie
-#COOKIE_ARG=`grep '^\-setcookie' $VMARGS_PATH`
-#if [ -z "$COOKIE_ARG" ]; then
-#    echo "vm.args needs to have a -setcookie parameter."
-#    exit 1
-#fi
-
-COOKIE=`cat $HOME/.erlang.cookie`
-COOKIE_ARG="-setcookie $COOKIE"
-
+if [ -r $HOME/.erlang.cookie ]; then
+    COOKIE=`cat $HOME/.erlang.cookie`
+    COOKIE_ARG="-setcookie $COOKIE"
+else
+    COOKIE_ARG=`grep '^\-setcookie' $VMARGS_PATH`
+    if [ -n "$COOKIE_ARG" ]; then
+        COOKIE=`echo $COOKIE_ARG | awk '{print $2}'`
+    else
+        echo "Erlang cookie not found."
+        exit 1
+    fi
+fi
 
 # Make sure CWD is set to the right dir
 cd $USE_DIR
@@ -153,7 +156,7 @@ mkdir -p $USE_DIR/log
 ERTS_PATH=$RUNNER_BASE_DIR/erts-$ERTS_VSN/bin
 
 # Setup command to control the node
-NODETOOL="$ERTS_PATH/escript $ERTS_PATH/nodetool $NAME_ARG  $COOKIE_ARG"
+NODETOOL="$ERTS_PATH/escript $ERTS_PATH/nodetool $NAME_ARG $COOKIE_ARG"
 
 # Setup remote shell command to control node
 REMSH="$ERTS_PATH/erl $REMSH_NAME_ARG $REMSH_REMSH_ARG $COOKIE_ARG"
@@ -322,9 +325,8 @@ case "$1" in
         fi
 
         node_name=`echo $NAME_ARG | awk '{print $2}'`
-        erlang_cookie=$COOKIE 
 
-        $ERTS_PATH/escript $RUNNER_BASE_DIR/bin/install_upgrade.escript $node_name $erlang_cookie $2
+        $ERTS_PATH/escript $RUNNER_BASE_DIR/bin/install_upgrade.escript $node_name $COOKIE $2
         ;;
 
    remove_release)
@@ -349,9 +351,8 @@ case "$1" in
         fi
 
         node_name=`echo $NAME_ARG | awk '{print $2}'`
-        erlang_cookie=$COOKIE 
 
-        $ERTS_PATH/escript $RUNNER_BASE_DIR/bin/remove_release.escript $node_name $erlang_cookie $2 $3
+        $ERTS_PATH/escript $RUNNER_BASE_DIR/bin/remove_release.escript $node_name $COOKIE $2 $3
         ;;
 
     console|console_clean|console_boot)
