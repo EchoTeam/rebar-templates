@@ -63,7 +63,7 @@ if ! [ -d ${RUNNER_ETC_DIR} ]; then
     RUNNER_ETC_DIR=$RUNNER_BASE_DIR/etc
 fi
 # Note the trailing slash on $PIPE_DIR/
-PIPE_DIR=/tmp/$SERVNAME.pipe/
+PIPE_DIR=/tmp/${SERVNAME}.${RUNNER_USER}.pipe/
 
 # Make sure this script is running as the appropriate user
 if ([ "$RUNNER_USER" ] && [ "x$WHOAMI" != "x$RUNNER_USER" ]); then
@@ -222,7 +222,7 @@ case "$1" in
            [ -n "$THISISRESTART"  ] && sleep 5
 
            $ERTS_PATH/run_erl -daemon $PIPE_DIR $RUNNER_LOG_DIR "exec $RUNNER_BASE_DIR/bin/$SCRIPT $START_OPTION $RUN_PARAM" 2>&1
-       ) 9>/tmp/${SERVNAME}_restart
+       ) 9>/tmp/${SERVNAME}.${RUNNER_USER}.restart
         ;;
 
     stop)
