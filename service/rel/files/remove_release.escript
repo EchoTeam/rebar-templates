@@ -4,8 +4,8 @@
 %% ex: ft=erlang ts=4 sw=4 et
 
 -define(TIMEOUT, 60000).
--define(INFO(Fmt,Args), io:format(Fmt,Args)).
--define(ERR(Fmt,Args), begin io:format(Fmt,Args), halt(1) end).
+-define(INFO(Fmt, Args), io:format(Fmt, Args)).
+-define(ERR(Fmt, Args), begin io:format(Fmt, Args), halt(1) end).
 
 main([NodeName, Cookie, RelToDel, BackRel]) ->
     TargetNode = start_distribution(NodeName, Cookie),
@@ -13,12 +13,12 @@ main([NodeName, Cookie, RelToDel, BackRel]) ->
         ListReleases when is_list(ListReleases) -> %% [{Name, Vsn, Apps, Status }]
             %% check the status of  RelToDel
             case [Status || {_,R,_,Status} <- ListReleases, R == RelToDel  ] of
-                [S] -> remove_rls(TargetNode,S, RelToDel, BackRel);
-                []          -> ?ERR("No such release was installed ~p~n",[RelToDel]);
-                Else        -> ?ERR("Cannot get status of ~p (~p)~n",[RelToDel,Else])
+                [S] -> remove_rls(TargetNode, S, RelToDel, BackRel);
+                []          -> ?ERR("No such release was installed ~p~n", [RelToDel]);
+                Else        -> ?ERR("Cannot get status of ~p (~p)~n", [RelToDel,Else])
             end;
-        Else -> ?ERR("Cannot get list of releases ~p~n",[Else])
-    end;                
+        Else -> ?ERR("Cannot get list of releases ~p~n", [Else])
+    end;
 
 main(_) ->
     halt(1).
@@ -44,23 +44,16 @@ make_target_node(Node) ->
 make_script_node(Node) ->
     list_to_atom(lists:concat([Node, "_remover_", os:getpid()])).
 
-remove_rls(TargetNode,old,RelToDel,_) ->
-    ok = rpc:call(TargetNode,release_handler, remove_release,[RelToDel],?TIMEOUT),
-    ?INFO("Release ~p is removed",[RelToDel]);
-
-remove_rls(TargetNode,permanent,RelToDel,BackRel) ->
-    {ok, _, Desc} = rpc:call(TargetNode, release_handler,check_install_release, [BackRel], ?TIMEOUT),
-    {ok, _, Desc} = rpc:call(TargetNode, release_handler,install_release, [BackRel], ?TIMEOUT),
+remove_rls(TargetNode, permanent, RelToDel, BackRel) ->
+    {ok, _, Desc} = rpc:call(TargetNode, release_handler, check_install_release, [BackRel], ?TIMEOUT),
+    {ok, _, Desc} = rpc:call(TargetNode, release_handler, install_release, [BackRel], ?TIMEOUT),
     ?INFO("Installed Release ~p~n", [BackRel]),
     ok = rpc:call(TargetNode, release_handler, make_permanent, [BackRel], ?TIMEOUT),
     ?INFO("Made Release ~p Permanent~n", [BackRel]),
-    ok = rpc:call(TargetNode,release_handler, remove_release,[RelToDel],?TIMEOUT),
-    ?INFO("Release ~p is removed",[RelToDel]).
+    ok = rpc:call(TargetNode,release_handler, remove_release, [RelToDel], ?TIMEOUT),
+    ?INFO("Release ~p is removed", [RelToDel]);
 
-
-
-
-
-
-
+remove_rls(TargetNode, _, RelToDel, _) ->
+    ok = rpc:call(TargetNode, release_handler, remove_release, [RelToDel], ?TIMEOUT),
+    ?INFO("Release ~p is removed", [RelToDel]).
 

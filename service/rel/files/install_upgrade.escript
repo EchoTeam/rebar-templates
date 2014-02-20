@@ -4,7 +4,7 @@
 %% ex: ft=erlang ts=4 sw=4 et
 
 -define(TIMEOUT, 60000).
--define(INFO(Fmt,Args), io:format(Fmt,Args)).
+-define(INFO(Fmt, Args), io:format(Fmt, Args)).
 
 main([NodeName, Cookie, ReleasePackage]) ->
     TargetNode = start_distribution(NodeName, Cookie),

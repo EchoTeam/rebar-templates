@@ -125,7 +125,7 @@ if [ -z $HOST_IN_NAME ] ; then
     RUNHOST=`hostname -s`
 else
     RUNHOST=$HOST_IN_NAME
-fi    
+fi
 
 # Note the `date +%s`, used to allow multiple remsh to the same node
 # transparently
@@ -186,7 +186,7 @@ get_pid() {
 }
 
 
-    
+
 
 # Check the first argument for instructions
 case "$1" in
@@ -222,7 +222,7 @@ case "$1" in
            [ -n "$THISISRESTART"  ] && sleep 5
 
            $ERTS_PATH/run_erl -daemon $PIPE_DIR $RUNNER_LOG_DIR "exec $RUNNER_BASE_DIR/bin/$SCRIPT $START_OPTION $RUN_PARAM" 2>&1
-       ) 9>/tmp/${SERVNAME}.${RUNNER_USER}.restart
+        ) 9>/tmp/${SERVNAME}.${RUNNER_USER}.restart
         ;;
 
     stop)
@@ -341,7 +341,6 @@ case "$1" in
             exit 1
         fi
 
-
         # Make sure a node IS running
         ping_node
         ES=$?
@@ -423,6 +422,7 @@ case "$1" in
             exit $ES
         fi
         echo $PID
+        exit 0
         ;;
     relvsn)
         ## See if the VM is alive
@@ -440,5 +440,3 @@ case "$1" in
         exit 1
         ;;
 esac
-
-exit 0
