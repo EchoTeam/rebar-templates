@@ -6,7 +6,7 @@ To make the templates available, you need to clone the repo to your
 `~/.rebar/templates` directory:
 
     mkdir -p ~/.rebar/templates
-    git clone git@github.com:EchoTeam/rebar-templates.git ~/.rebar/templates
+    git clone git://github.com:EchoTeam/rebar-templates.git ~/.rebar/templates
     
 ## Creating Erlang/OTP service layout
 
