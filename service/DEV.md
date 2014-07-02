@@ -89,19 +89,17 @@ And if you also want your applciation to be automatically started, change "rel" 
     {rel,"{{name}}","RELVSN",
         [kernel,sasl,stdlib,lager,corman,your_new_app]},
 
-### Cheking how target system build works:
+### Checking how target system build (release) works:
 
     $ make target
 
-### Cheking how upgrade works:
+### Checking how upgrade works:
 
     $ git checkout {an_older_rev} # checking out a specific past git revision
     $ make clean
     $ make run-no-sync # no-sync as we do not want modules to be auto-loaded
     $ git checkout master # checking out the current revision
     $ make upgrade
-
-
 
 ### See also:
 [Makefile targets](MAKE.md)
